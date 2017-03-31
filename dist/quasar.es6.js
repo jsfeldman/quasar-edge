@@ -6285,10 +6285,12 @@ var Search = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
     focus () {
       if (this.editable) {
         this.focused = true;
+        this.$emit('focus');
       }
     },
     blur () {
       this.focused = false;
+      this.$emit('blur');
     }
   },
   beforeDestroy () {

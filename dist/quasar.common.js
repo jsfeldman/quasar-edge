@@ -6854,10 +6854,12 @@ var Search = { render: function render() {
     focus: function focus() {
       if (this.editable) {
         this.focused = true;
+        this.$emit('focus');
       }
     },
     blur: function blur() {
       this.focused = false;
+      this.$emit('blur');
     }
   },
   beforeDestroy: function beforeDestroy() {
