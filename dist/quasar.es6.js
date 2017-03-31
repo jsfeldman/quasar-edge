@@ -2345,10 +2345,10 @@ var Autocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;va
     }
   },
   methods: {
-    popopen() {
+    popopen () {
       this.$emit('open');
     },
-    popclose() {
+    popclose () {
       this.$emit('close');
     },
     trigger () {
