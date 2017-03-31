@@ -2284,7 +2284,7 @@ function prevent (e) {
   e.stopPropagation();
 }
 
-var Autocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_vm._t("default",[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.model),expression:"model"}],attrs:{"type":"text"},domProps:{"value":(_vm.model)},on:{"input":function($event){if($event.target.composing){ return; }_vm.model=$event.target.value;}}})]),_c('q-popover',{ref:"popover",attrs:{"anchor-click":false}},[_c('div',{staticClass:"list no-border",class:{'item-delimiter': _vm.delimiter},style:(_vm.computedWidth)},_vm._l((_vm.computedResults),function(result,index){return _c('q-list-item',{key:result,attrs:{"item":result,"link":"","active":_vm.selectedIndex === index},nativeOn:{"click":function($event){_vm.setValue(result);}}})}))])],2)},staticRenderFns: [],
+var Autocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_vm._t("default",[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.model),expression:"model"}],attrs:{"type":"text"},domProps:{"value":(_vm.model)},on:{"input":function($event){if($event.target.composing){ return; }_vm.model=$event.target.value;}}})]),_c('q-popover',{ref:"popover",attrs:{"anchor-click":false},on:{"close":_vm.popclose,"open":_vm.popopen}},[_c('div',{staticClass:"list no-border",class:{'item-delimiter': _vm.delimiter},style:(_vm.computedWidth)},_vm._l((_vm.computedResults),function(result,index){return _c('q-list-item',{key:result,attrs:{"item":result,"link":"","active":_vm.selectedIndex === index},nativeOn:{"click":function($event){_vm.setValue(result);}}})}))])],2)},staticRenderFns: [],
   props: {
     value: {
       type: String,
@@ -2345,6 +2345,12 @@ var Autocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;va
     }
   },
   methods: {
+    popopen() {
+      this.$emit('open');
+    },
+    popclose() {
+      this.$emit('close');
+    },
     trigger () {
       this.width = Utils.dom.width(this.inputEl) + 'px';
       const searchId = Utils.uid();

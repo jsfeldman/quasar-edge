@@ -2380,7 +2380,7 @@ var Autocomplete = { render: function render() {
           if ($event.target.composing) {
             return;
           }_vm.model = $event.target.value;
-        } } })]), _c('q-popover', { ref: "popover", attrs: { "anchor-click": false } }, [_c('div', { staticClass: "list no-border", class: { 'item-delimiter': _vm.delimiter }, style: _vm.computedWidth }, _vm._l(_vm.computedResults, function (result, index) {
+        } } })]), _c('q-popover', { ref: "popover", attrs: { "anchor-click": false }, on: { "close": _vm.popclose, "open": _vm.popopen } }, [_c('div', { staticClass: "list no-border", class: { 'item-delimiter': _vm.delimiter }, style: _vm.computedWidth }, _vm._l(_vm.computedResults, function (result, index) {
       return _c('q-list-item', { key: result, attrs: { "item": result, "link": "", "active": _vm.selectedIndex === index }, nativeOn: { "click": function click($event) {
             _vm.setValue(result);
           } } });
@@ -2446,6 +2446,12 @@ var Autocomplete = { render: function render() {
     }
   },
   methods: {
+    popopen: function popopen() {
+      this.$emit('open');
+    },
+    popclose: function popclose() {
+      this.$emit('close');
+    },
     trigger: function trigger() {
       var _this = this;
 
