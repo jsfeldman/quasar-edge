@@ -8304,6 +8304,7 @@ var Uploader = { render: function render() {
           } else {
             file.__failed = true;
             reject(xhr);
+            _this2.$emit('fail', file.name, xhr);
           }
         };
 

@@ -7582,6 +7582,7 @@ var Uploader = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
           else {
             file.__failed = true;
             reject(xhr);
+            this.$emit('fail', file.name, xhr);
           }
         };
 
