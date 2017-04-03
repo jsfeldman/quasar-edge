@@ -3922,7 +3922,10 @@ var InlineDatetimeMaterial = {render: function(){var _vm=this;var _h=_vm.$create
         return Utils.format.between(value, 1, this.daysInMonth)
       }
       if (type === 'year') {
-        return Utils.format.between(value, 1950, 2050)
+        let
+          min = this.pmin ? this.pmin.year() : 1950,
+          max = this.pmax ? this.pmax.year() : 2050;
+        return Utils.format.between(value, min, max)
       }
       if (type === 'hour') {
         return Utils.format.between(value, 0, 23)
@@ -4136,7 +4139,10 @@ var InlineDatetimeIOS = {render: function(){var _vm=this;var _h=_vm.$createEleme
         return Utils.format.between(value, 1, this.daysInMonth)
       }
       if (type === 'year') {
-        return Utils.format.between(value, 1950, 2050)
+        let
+          min = this.pmin ? this.pmin.year() : 1950,
+          max = this.pmax ? this.pmax.year() : 2050;
+        return Utils.format.between(value, min, max)
       }
       if (type === 'hour') {
         return Utils.format.between(value, 0, 23)
