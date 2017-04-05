@@ -6784,7 +6784,11 @@ var Search = { render: function render() {
           if ($event.target.composing) {
             return;
           }_vm.model = $event.target.value;
-        } } }) : _c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.model, expression: "model" }], staticClass: "q-search-input no-style", attrs: { "type": "text", "placeholder": _vm.$q.theme === 'mat' ? _vm.placeholder : '', "disabled": _vm.disable, "readonly": _vm.readonly, "tabindex": "0" }, domProps: { "value": _vm.model }, on: { "focus": _vm.focus, "blur": _vm.blur, "input": function input($event) {
+        } } }) : _c('input', { directives: [{ name: "model", rawName: "v-model", value: _vm.model, expression: "model" }], staticClass: "q-search-input no-style", attrs: { "type": "text", "placeholder": _vm.$q.theme === 'mat' ? _vm.placeholder : '', "disabled": _vm.disable, "readonly": _vm.readonly, "tabindex": "0" }, domProps: { "value": _vm.model }, on: { "focus": _vm.focus, "blur": _vm.blur, "keyup": function keyup($event) {
+          if (_vm._k($event.keyCode, "enter", 13)) {
+            return null;
+          }_vm.enter($event);
+        }, "input": function input($event) {
           if ($event.target.composing) {
             return;
           }_vm.model = $event.target.value;
@@ -6864,6 +6868,9 @@ var Search = { render: function render() {
     blur: function blur() {
       this.focused = false;
       this.$emit('blur');
+    },
+    enter: function enter() {
+      this.$emit('enter');
     }
   },
   beforeDestroy: function beforeDestroy() {
