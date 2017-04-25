@@ -6792,7 +6792,7 @@ var Spinner = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=
       default: current === 'ios' ? 'ios' : 'tail'
     },
     size: {
-      type: Number,
+      type: [Number, String],
       default: 64
     },
     color: {

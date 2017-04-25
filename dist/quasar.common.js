@@ -7438,7 +7438,7 @@ var Spinner = { render: function render() {
       default: current === 'ios' ? 'ios' : 'tail'
     },
     size: {
-      type: Number,
+      type: [Number, String],
       default: 64
     },
     color: {
