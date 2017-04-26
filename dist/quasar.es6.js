@@ -5478,7 +5478,7 @@ var Popover = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=
     });
   },
   beforeDestroy () {
-    if (this.anchorClick) {
+    if (this.anchorClick && this.anchorEl) {
       this.anchorEl.removeEventListener('click', this.toggle);
     }
     this.close();
