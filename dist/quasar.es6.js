@@ -6335,6 +6335,14 @@ var Select = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
     disable: Boolean,
     delimiter: Boolean
   },
+  watch: {
+    model: {
+      deep: true,
+      handler (val) {
+        this.$emit('input', val);
+      }
+    }
+  },
   computed: {
     model: {
       get () {

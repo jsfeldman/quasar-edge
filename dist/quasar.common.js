@@ -6928,6 +6928,14 @@ var Select = { render: function render() {
     disable: Boolean,
     delimiter: Boolean
   },
+  watch: {
+    model: {
+      deep: true,
+      handler: function handler(val) {
+        this.$emit('input', val);
+      }
+    }
+  },
   computed: {
     model: {
       get: function get() {
