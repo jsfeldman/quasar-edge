@@ -1,5 +1,5 @@
 /*!
- * Quasar Framework v0.13.7
+ * Quasar Framework v0.13.9
  * (c) 2017 Razvan Stoenescu
  * Released under the MIT License.
  */
@@ -1331,7 +1331,7 @@ var theme = Object.freeze({
 	get current () { return current; }
 });
 
-var version = "0.13.7";
+var version = "0.13.9";
 
 function getHeight (el, style$$1) {
   let initial = {
@@ -3220,7 +3220,7 @@ var SortIcon = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
   }
 };
 
-var TableSticky = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('table',{staticClass:"q-table horizontal-delimiter"},[_c('colgroup',[(_vm.selection)?_c('col',{staticStyle:{"width":"45px"}}):_vm._e(),_vm._l((_vm.cols),function(col){return _c('col',{style:({width: col.width})})})],2),(!_vm.noHeader)?_c('thead',[_c('tr',[(_vm.selection)?_c('th',[_vm._v(" ")]):_vm._e(),_vm._l((_vm.cols),function(col,index){return _c('th',{class:{invisible: _vm.hidden(index), sortable: col.sort},on:{"click":function($event){_vm.sort(col);}}},[(!_vm.hidden(index))?[(col.sort)?_c('sort-icon',{attrs:{"field":col.field,"sorting":_vm.sorting}}):_vm._e(),_c('span',{domProps:{"innerHTML":_vm._s(col.label)}})]:_vm._e()],2)})],2)]):_vm._e(),(!_vm.head)?_c('tbody',[_vm._t("default")],2):_vm._e()])},staticRenderFns: [],
+var TableSticky = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('table',{staticClass:"q-table horizontal-delimiter"},[_c('colgroup',[(_vm.selection)?_c('col',{staticStyle:{"width":"45px"}}):_vm._e(),_vm._l((_vm.cols),function(col){return _c('col',{style:({width: col.width})})})],2),(!_vm.noHeader)?_c('thead',[_c('tr',[(_vm.selection)?_c('th',[_vm._v(" ")]):_vm._e(),_vm._l((_vm.cols),function(col,index){return _c('th',{class:{invisible: _vm.hidden(index), sortable: col.sort},on:{"click":function($event){_vm.sort(col);}}},[(!_vm.hidden(index))?[(col.sort)?_c('sort-icon',{attrs:{"field":col.field,"sorting":_vm.sorting}}):_vm._e(),_c('span',{domProps:{"innerHTML":_vm._s(col.label)}}),(col.label)?_c('q-tooltip',{domProps:{"innerHTML":_vm._s(col.label)}}):_vm._e()]:_vm._e()],2)})],2)]):_vm._e(),(!_vm.head)?_c('tbody',[_vm._t("default")],2):_vm._e()])},staticRenderFns: [],
   props: {
     stickyCols: Number,
     cols: Array,
@@ -3296,7 +3296,7 @@ var StickyColumns = {
   }
 };
 
-var TableContent = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('table',{staticClass:"q-table horizontal-delimiter",style:(_vm.tableStyle)},[_c('colgroup',[(_vm.selection)?_c('col',{staticStyle:{"width":"45px"}}):_vm._e(),_vm._l((_vm.cols),function(col){return _c('col',{style:({width: col.width})})}),(_vm.head && _vm.scroll.horiz)?_c('col',{style:({width: _vm.scroll.horiz})}):_vm._e()],2),(_vm.head)?_c('thead',[_c('tr',[(_vm.selection)?_c('th',[_vm._v(" ")]):_vm._e(),_vm._l((_vm.cols),function(col){return _c('th',{class:{sortable: col.sort},on:{"click":function($event){_vm.sort(col);}}},[(col.sort)?_c('sort-icon',{attrs:{"field":col.field,"sorting":_vm.sorting}}):_vm._e(),_c('span',{domProps:{"innerHTML":_vm._s(col.label)}})],1)}),(_vm.head && _vm.scroll.horiz)?_c('th'):_vm._e()],2)]):_c('tbody',[_vm._t("default")],2)])},staticRenderFns: [],
+var TableContent = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('table',{staticClass:"q-table horizontal-delimiter",style:(_vm.tableStyle)},[_c('colgroup',[(_vm.selection)?_c('col',{staticStyle:{"width":"45px"}}):_vm._e(),_vm._l((_vm.cols),function(col){return _c('col',{style:({width: col.width})})}),(_vm.head && _vm.scroll.horiz)?_c('col',{style:({width: _vm.scroll.horiz})}):_vm._e()],2),(_vm.head)?_c('thead',[_c('tr',[(_vm.selection)?_c('th',[_vm._v(" ")]):_vm._e(),_vm._l((_vm.cols),function(col){return _c('th',{class:{sortable: col.sort},on:{"click":function($event){_vm.sort(col);}}},[(col.sort)?_c('sort-icon',{attrs:{"field":col.field,"sorting":_vm.sorting}}):_vm._e(),_c('span',{domProps:{"innerHTML":_vm._s(col.label)}}),(col.label)?_c('q-tooltip',{domProps:{"innerHTML":_vm._s(col.label)}}):_vm._e()],1)}),(_vm.head && _vm.scroll.horiz)?_c('th'):_vm._e()],2)]):_c('tbody',[_vm._t("default")],2)])},staticRenderFns: [],
   props: {
     cols: Array,
     head: Boolean,
@@ -6339,7 +6339,9 @@ var Select = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
     model: {
       deep: true,
       handler (val) {
-        this.$emit('input', val);
+        if (this.multipleSelection) {
+          this.$emit('input', val);
+        }
       }
     }
   },
@@ -7310,6 +7312,10 @@ var Tooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=
       type: Array,
       validator: Utils.popup.offsetValidator
     },
+    delay: {
+      type: Number,
+      default: 0
+    },
     maxHeight: String,
     disable: Boolean
   },
@@ -7341,6 +7347,7 @@ var Tooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=
       }
     },
     open () {
+      clearTimeout(this.timer);
       if (this.disable) {
         return
       }
@@ -7355,6 +7362,7 @@ var Tooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=
       this.__updatePosition();
     },
     close () {
+      clearTimeout(this.timer);
       if (this.opened) {
         this.opened = false;
         this.scrollTarget.removeEventListener('scroll', this.close);
@@ -7374,6 +7382,10 @@ var Tooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=
         selfOrigin: this.selfOrigin,
         maxHeight: this.maxHeight
       });
+    },
+    __delayOpen () {
+      clearTimeout(this.timer);
+      this.timer = setTimeout(this.open, this.delay);
     }
   },
   created () {
@@ -7396,8 +7408,8 @@ var Tooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=
         this.anchorEl.addEventListener('click', this.open);
       }
       else {
-        this.anchorEl.addEventListener('mouseenter', this.open);
-        this.anchorEl.addEventListener('focus', this.open);
+        this.anchorEl.addEventListener('mouseenter', this.__delayOpen);
+        this.anchorEl.addEventListener('focus', this.__delayOpen);
         this.anchorEl.addEventListener('mouseleave', this.close);
         this.anchorEl.addEventListener('blur', this.close);
       }
@@ -7408,8 +7420,8 @@ var Tooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=
       this.anchorEl.removeEventListener('click', this.open);
     }
     else {
-      this.anchorEl.removeEventListener('mouseenter', this.open);
-      this.anchorEl.removeEventListener('click', this.open);
+      this.anchorEl.removeEventListener('mouseenter', this.__delayOpen);
+      this.anchorEl.removeEventListener('focus', this.__delayOpen);
       this.anchorEl.removeEventListener('mouseleave', this.close);
       this.anchorEl.removeEventListener('blur', this.close);
     }

@@ -19,6 +19,7 @@
               :sorting="sorting"
             ></sort-icon>
             <span v-html="col.label"></span>
+            <q-tooltip v-if="col.label" v-html="col.label"></q-tooltip>
           </template>
         </th>
       </tr>

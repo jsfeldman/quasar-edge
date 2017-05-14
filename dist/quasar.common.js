@@ -1,5 +1,5 @@
 /*!
- * Quasar Framework v0.13.7
+ * Quasar Framework v0.13.9
  * (c) 2017 Razvan Stoenescu
  * Released under the MIT License.
  */
@@ -1402,7 +1402,7 @@ var theme = Object.freeze({
 	get current () { return current; }
 });
 
-var version = "0.13.7";
+var version = "0.13.9";
 
 function getHeight(el, style$$1) {
   var initial = {
@@ -3454,7 +3454,7 @@ var TableSticky = { render: function render() {
     })], 2), !_vm.noHeader ? _c('thead', [_c('tr', [_vm.selection ? _c('th', [_vm._v(" ")]) : _vm._e(), _vm._l(_vm.cols, function (col, index) {
       return _c('th', { class: { invisible: _vm.hidden(index), sortable: col.sort }, on: { "click": function click($event) {
             _vm.sort(col);
-          } } }, [!_vm.hidden(index) ? [col.sort ? _c('sort-icon', { attrs: { "field": col.field, "sorting": _vm.sorting } }) : _vm._e(), _c('span', { domProps: { "innerHTML": _vm._s(col.label) } })] : _vm._e()], 2);
+          } } }, [!_vm.hidden(index) ? [col.sort ? _c('sort-icon', { attrs: { "field": col.field, "sorting": _vm.sorting } }) : _vm._e(), _c('span', { domProps: { "innerHTML": _vm._s(col.label) } }), col.label ? _c('q-tooltip', { domProps: { "innerHTML": _vm._s(col.label) } }) : _vm._e()] : _vm._e()], 2);
     })], 2)]) : _vm._e(), !_vm.head ? _c('tbody', [_vm._t("default")], 2) : _vm._e()]);
   }, staticRenderFns: [],
   props: {
@@ -3545,7 +3545,7 @@ var TableContent = { render: function render() {
     }), _vm.head && _vm.scroll.horiz ? _c('col', { style: { width: _vm.scroll.horiz } }) : _vm._e()], 2), _vm.head ? _c('thead', [_c('tr', [_vm.selection ? _c('th', [_vm._v(" ")]) : _vm._e(), _vm._l(_vm.cols, function (col) {
       return _c('th', { class: { sortable: col.sort }, on: { "click": function click($event) {
             _vm.sort(col);
-          } } }, [col.sort ? _c('sort-icon', { attrs: { "field": col.field, "sorting": _vm.sorting } }) : _vm._e(), _c('span', { domProps: { "innerHTML": _vm._s(col.label) } })], 1);
+          } } }, [col.sort ? _c('sort-icon', { attrs: { "field": col.field, "sorting": _vm.sorting } }) : _vm._e(), _c('span', { domProps: { "innerHTML": _vm._s(col.label) } }), col.label ? _c('q-tooltip', { domProps: { "innerHTML": _vm._s(col.label) } }) : _vm._e()], 1);
     }), _vm.head && _vm.scroll.horiz ? _c('th') : _vm._e()], 2)]) : _c('tbody', [_vm._t("default")], 2)]);
   }, staticRenderFns: [],
   props: {
@@ -6932,7 +6932,9 @@ var Select = { render: function render() {
     model: {
       deep: true,
       handler: function handler(val) {
-        this.$emit('input', val);
+        if (this.multipleSelection) {
+          this.$emit('input', val);
+        }
       }
     }
   },
@@ -8000,6 +8002,10 @@ var Tooltip = { render: function render() {
       type: Array,
       validator: Utils.popup.offsetValidator
     },
+    delay: {
+      type: Number,
+      default: 0
+    },
     maxHeight: String,
     disable: Boolean
   },
@@ -8031,6 +8037,7 @@ var Tooltip = { render: function render() {
       }
     },
     open: function open() {
+      clearTimeout(this.timer);
       if (this.disable) {
         return;
       }
@@ -8045,6 +8052,7 @@ var Tooltip = { render: function render() {
       this.__updatePosition();
     },
     close: function close() {
+      clearTimeout(this.timer);
       if (this.opened) {
         this.opened = false;
         this.scrollTarget.removeEventListener('scroll', this.close);
@@ -8064,6 +8072,10 @@ var Tooltip = { render: function render() {
         selfOrigin: this.selfOrigin,
         maxHeight: this.maxHeight
       });
+    },
+    __delayOpen: function __delayOpen() {
+      clearTimeout(this.timer);
+      this.timer = setTimeout(this.open, this.delay);
     }
   },
   created: function created() {
@@ -8084,8 +8096,8 @@ var Tooltip = { render: function render() {
       if (Platform.is.mobile) {
         _this2.anchorEl.addEventListener('click', _this2.open);
       } else {
-        _this2.anchorEl.addEventListener('mouseenter', _this2.open);
-        _this2.anchorEl.addEventListener('focus', _this2.open);
+        _this2.anchorEl.addEventListener('mouseenter', _this2.__delayOpen);
+        _this2.anchorEl.addEventListener('focus', _this2.__delayOpen);
         _this2.anchorEl.addEventListener('mouseleave', _this2.close);
         _this2.anchorEl.addEventListener('blur', _this2.close);
       }
@@ -8095,8 +8107,8 @@ var Tooltip = { render: function render() {
     if (Platform.is.mobile) {
       this.anchorEl.removeEventListener('click', this.open);
     } else {
-      this.anchorEl.removeEventListener('mouseenter', this.open);
-      this.anchorEl.removeEventListener('click', this.open);
+      this.anchorEl.removeEventListener('mouseenter', this.__delayOpen);
+      this.anchorEl.removeEventListener('focus', this.__delayOpen);
       this.anchorEl.removeEventListener('mouseleave', this.close);
       this.anchorEl.removeEventListener('blur', this.close);
     }
