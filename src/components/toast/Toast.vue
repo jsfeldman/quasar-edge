@@ -9,10 +9,10 @@
       :style="{color: stack[0].color, background: stack[0].bgColor}"
       :class="classes"
     >
-      <i v-if="stack[0].icon">{{ stack[0].icon }}</i>
+      <q-icon v-if="stack[0].icon" :name="stack[0].icon"></q-icon>
       <img v-if="stack[0].image" :src="stack[0].image">
 
-      <div class="q-toast-message auto" v-html="stack[0].html"></div>
+      <div class="q-toast-message col" v-html="stack[0].html"></div>
 
       <a
         v-if="stack[0].button && stack[0].button.label"
@@ -26,7 +26,7 @@
         @click="dismiss()"
         :style="{color: stack[0].button.color}"
       >
-        <i>close</i>
+        <q-icon name="close"></q-icon>
       </a>
     </div>
   </div>
@@ -34,7 +34,8 @@
 
 <script>
 import Events from '../../features/events'
-import Utils from '../../utils'
+import extend from '../../utils/extend'
+import { QIcon } from '../icon'
 
 let
   transitionDuration = 300, // in ms
@@ -45,7 +46,7 @@ function parseOptions (opts, defaults) {
     throw new Error('Missing toast options.')
   }
 
-  let options = Utils.extend(
+  let options = extend(
     true,
     {},
     defaults,
@@ -60,6 +61,10 @@ function parseOptions (opts, defaults) {
 }
 
 export default {
+  name: 'q-toast',
+  components: {
+    QIcon
+  },
   data () {
     return {
       active: false,
@@ -70,7 +75,7 @@ export default {
         color: 'white',
         bgColor: '#323232',
         button: {
-          color: 'yellow'
+          color: 'inherit'
         }
       }
     }
@@ -92,7 +97,9 @@ export default {
         return
       }
 
-      this.active = true
+      this.activeTimer = setTimeout(() => {
+        this.active = true
+      }, 10)
       this.inTransition = true
 
       this.__show()
@@ -110,8 +117,9 @@ export default {
       }, transitionDuration + (this.stack[0].timeout || displayDuration))
     },
     dismiss (done) {
-      this.active = false
       clearTimeout(this.timer)
+      clearTimeout(this.activeTimer)
+      this.active = false
       this.timer = null
 
       setTimeout(() => {
@@ -132,7 +140,7 @@ export default {
       }, transitionDuration + 50)
     },
     setDefaults (opts) {
-      Utils.extend(true, this.defaults, opts)
+      extend(true, this.defaults, opts)
     }
   }
 }

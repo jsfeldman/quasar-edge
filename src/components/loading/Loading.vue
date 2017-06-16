@@ -1,25 +1,30 @@
 <template>
   <div class="q-loading animate-fade fullscreen column items-center justify-center z-absolute">
-    <spinner :name="spinner" :color="spinnerColor" :size="spinnerSize"></spinner>
+    <q-spinner :color="spinnerColor" :size="spinnerSize"></q-spinner>
     <div
       v-if="message"
-      :style="{color: messageColor}"
+      :class="`text-${messageColor}`"
     >{{ message }}</div>
   </div>
 </template>
 
 <script>
+import { QSpinner } from '../spinner'
+
 export default {
+  name: 'q-loading',
+  components: {
+    QSpinner
+  },
   props: {
     message: [String, Boolean],
-    spinner: String,
     spinnerSize: {
       type: Number,
       default: 80
     },
     spinnerColor: {
       type: String,
-      default: '#fff'
+      default: 'white'
     },
     messageColor: {
       type: String,

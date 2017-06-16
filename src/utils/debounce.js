@@ -1,7 +1,7 @@
 
-let now = Date.now
+const now = Date.now
 
-export default function (fn, wait = 250, immediate) {
+export function debounce (fn, wait = 250, immediate) {
   let
     timeout, params, context, timestamp, result,
     later = () => {
@@ -22,8 +22,6 @@ export default function (fn, wait = 250, immediate) {
     }
 
   return function (...args) {
-    var callNow = immediate && !timeout
-
     context = this
     timestamp = now()
     params = args
@@ -31,11 +29,30 @@ export default function (fn, wait = 250, immediate) {
     if (!timeout) {
       timeout = setTimeout(later, wait)
     }
-    if (callNow) {
+    if (immediate && !timeout) {
       result = fn.apply(context, args)
       context = params = null
     }
 
     return result
+  }
+}
+
+export function frameDebounce (fn) {
+  let
+    wait = false,
+    param
+
+  return function (...args) {
+    param = args
+    if (wait) {
+      return
+    }
+
+    wait = true
+    window.requestAnimationFrame(() => {
+      fn.apply(this, param)
+      wait = false
+    })
   }
 }
