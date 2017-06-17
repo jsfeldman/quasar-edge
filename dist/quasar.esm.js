@@ -2845,7 +2845,6 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
       this.close();
     },
     move: function move (offset$$1) {
-      console.log('move', this.selectedIndex, this.computedResults.length);
       this.selectedIndex = normalizeToInterval(
         this.selectedIndex + offset$$1,
         0,
