@@ -2713,7 +2713,7 @@ function prevent (e) {
   e.stopPropagation();
 }
 
-var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-popover',{ref:"popover",attrs:{"fit":"","offset":[0, 10],"anchor-click":false},on:{"close":function($event){_vm.$emit('close');},"open":function($event){_vm.$emit('open');}}},[_c('div',{staticClass:"list no-border",class:{delimiter: _vm.delimiter},style:(_vm.computedWidth)},_vm._l((_vm.computedResults),function(result,index){return _c('q-item-wrapper',{key:result,attrs:{"cfg":result,"link":"","active":_vm.selectedIndex === index},on:{"click":function($event){_vm.setValue(result);}}})}))])},staticRenderFns: [],
+var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-popover',{ref:"popover",attrs:{"fit":"","offset":[0, 10],"anchor-click":false},on:{"close":function($event){_vm.$emit('close');},"open":function($event){_vm.$emit('open');}}},[_c('div',{staticClass:"list no-border",class:{delimiter: _vm.delimiter},style:(_vm.computedWidth)},_vm._l((_vm.computedResults),function(result,index){return _c('q-item-wrapper',{key:result,class:{active: _vm.selectedIndex === index},attrs:{"cfg":result,"link":""},on:{"click":function($event){_vm.setValue(result);}}})}))])},staticRenderFns: [],
   name: 'q-autocomplete',
   components: {
     QInput: QInput,
@@ -2845,6 +2845,7 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
       this.close();
     },
     move: function move (offset$$1) {
+      console.log('move', this.selectedIndex, this.computedResults.length);
       this.selectedIndex = normalizeToInterval(
         this.selectedIndex + offset$$1,
         0,
