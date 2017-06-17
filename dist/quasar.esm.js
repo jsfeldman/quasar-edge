@@ -1774,8 +1774,10 @@ var QInput = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
     __set: function __set (e) {
       var val = e.target ? e.target.value : e;
       if (val !== this.value) {
-        if (this.isNumber && Number.isInteger(this.maxDecimals)) {
-          val = parseFloat(val).toFixed(this.maxDecimals);
+        if (this.isNumber) {
+          val = Number.isInteger(this.maxDecimals)
+            ? parseFloat(val).toFixed(this.maxDecimals)
+            : parseFloat(val);
         }
         this.$emit('input', val);
         this.$emit('change', val);
@@ -8302,7 +8304,7 @@ var QFab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm
   }
 };
 
-var QFabAction = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-btn',{attrs:{"round":"","small":"","outline":_vm.outline,"push":_vm.push,"flat":_vm.flat,"color":_vm.color},on:{"click":_vm.click}},[_c('q-icon',{attrs:{"name":_vm.icon}}),_vm._t("default")],2)},staticRenderFns: [],
+var QFabAction = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-btn',{attrs:{"round":"","small":"","outline":_vm.outline,"push":_vm.push,"flat":_vm.flat,"color":_vm.color,"glossy":_vm.glossy},on:{"click":_vm.click}},[_c('q-icon',{attrs:{"name":_vm.icon}}),_vm._t("default")],2)},staticRenderFns: [],
   name: 'q-fab-action',
   mixins: [FabMixin],
   components: {
