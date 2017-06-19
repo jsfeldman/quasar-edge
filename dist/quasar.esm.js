@@ -766,8 +766,9 @@ var QAlert = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
       return this.icon || typeIcon[this.color] || typeIcon.warning
     },
     containerClass: function containerClass () {
-      if (this.position) {
-        return ("fixed-" + (this.position) + " z-alert")
+      var pos = this.position;
+      if (pos) {
+        return ("fixed-" + pos + (pos === 'left' || pos === 'right' ? ' row items-center' : '') + " z-alert")
       }
     },
     classes: function classes () {
