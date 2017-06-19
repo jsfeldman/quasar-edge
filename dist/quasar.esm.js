@@ -8125,7 +8125,14 @@ var QDatetime = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
     QInlineDatetime: QInlineDatetime,
     QBtn: QBtn
   },
-  props: extend({defaultSelection: [String, Number, Date]}, input, inline),
+  props: extend(
+    {
+      defaultSelection: [String, Number, Date],
+      displayValue: String
+    },
+    input,
+    inline
+  ),
   data: function data () {
     var data = this.$q.platform.is.desktop ? {} : {
       css: contentCSS[current],
@@ -8139,6 +8146,9 @@ var QDatetime = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
   },
   computed: {
     actualValue: function actualValue () {
+      if (this.displayValue) {
+        return this.displayValue
+      }
       if (!this.value) {
         return this.placeholder || ''
       }
@@ -8212,7 +8222,7 @@ var QDatetime = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
   }
 };
 
-var QDatetimeRange = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"q-datetime-range"},[_c('q-datetime',{staticClass:"inline",class:_vm.className,style:(_vm.css),attrs:{"default-selection":_vm.defaultFrom,"type":_vm.type,"min":_vm.min,"max":_vm.value.to || _vm.max,"format":_vm.format,"no-clear":_vm.noClear,"clear-label":_vm.clearLabel,"ok-label":_vm.okLabel,"cancel-label":_vm.cancelLabel,"float-label":_vm.floatLabel,"stack-label":_vm.stackLabel,"placeholder":_vm.placeholder,"disable":_vm.disable,"inverted":_vm.inverted,"dark":_vm.dark,"before":_vm.before,"after":_vm.after,"color":_vm.color,"align":_vm.align,"format24h":_vm.format24h,"monday-first":_vm.mondayFirst},on:{"change":_vm.__onChange},model:{value:(_vm.value.from),callback:function ($$v) {_vm.value.from=$$v;},expression:"value.from"}}),_c('q-datetime',{staticClass:"inline",class:_vm.className,style:(_vm.css),attrs:{"default-selection":_vm.defaultTo,"type":_vm.type,"min":_vm.value.from || _vm.min,"max":_vm.max,"format":_vm.format,"no-clear":_vm.noClear,"clear-label":_vm.clearLabel,"ok-label":_vm.okLabel,"cancel-label":_vm.cancelLabel,"float-label":_vm.floatLabel,"stack-label":_vm.stackLabel,"placeholder":_vm.placeholder,"disable":_vm.disable,"inverted":_vm.inverted,"dark":_vm.dark,"before":_vm.before,"after":_vm.after,"color":_vm.color,"align":_vm.align,"format24h":_vm.format24h,"monday-first":_vm.mondayFirst},on:{"change":_vm.__onChange},model:{value:(_vm.value.to),callback:function ($$v) {_vm.value.to=$$v;},expression:"value.to"}})],1)},staticRenderFns: [],
+var QDatetimeRange = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"q-datetime-range"},[_c('q-datetime',{staticClass:"inline",class:_vm.className,style:(_vm.css),attrs:{"default-selection":_vm.defaultFrom,"type":_vm.type,"min":_vm.min,"max":_vm.value.to || _vm.max,"format":_vm.format,"no-clear":_vm.noClear,"clear-label":_vm.clearLabel,"ok-label":_vm.okLabel,"cancel-label":_vm.cancelLabel,"float-label":_vm.floatLabel,"stack-label":_vm.stackLabel,"placeholder":_vm.placeholder,"disable":_vm.disable,"error":_vm.error,"inverted":_vm.inverted,"dark":_vm.dark,"before":_vm.before,"after":_vm.after,"color":_vm.color,"align":_vm.align,"format24h":_vm.format24h,"monday-first":_vm.mondayFirst},on:{"change":_vm.__onChange},model:{value:(_vm.value.from),callback:function ($$v) {_vm.value.from=$$v;},expression:"value.from"}}),_c('q-datetime',{staticClass:"inline",class:_vm.className,style:(_vm.css),attrs:{"default-selection":_vm.defaultTo,"type":_vm.type,"min":_vm.value.from || _vm.min,"max":_vm.max,"format":_vm.format,"no-clear":_vm.noClear,"clear-label":_vm.clearLabel,"ok-label":_vm.okLabel,"cancel-label":_vm.cancelLabel,"float-label":_vm.floatLabel,"stack-label":_vm.stackLabel,"placeholder":_vm.placeholder,"disable":_vm.disable,"error":_vm.error,"inverted":_vm.inverted,"dark":_vm.dark,"before":_vm.before,"after":_vm.after,"color":_vm.color,"align":_vm.align,"format24h":_vm.format24h,"monday-first":_vm.mondayFirst},on:{"change":_vm.__onChange},model:{value:(_vm.value.to),callback:function ($$v) {_vm.value.to=$$v;},expression:"value.to"}})],1)},staticRenderFns: [],
   name: 'q-datetime-range',
   mixins: [FrameMixin],
   components: {
