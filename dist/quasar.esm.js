@@ -10327,7 +10327,7 @@ var obj$1;},staticRenderFns: [],
     value: String,
     align: {
       type: String,
-      default: 'left',
+      default: current === 'ios' ? 'center' : 'left',
       validator: function (v) { return ['left', 'center', 'right', 'justify'].includes(v); }
     },
     position: {
