@@ -6914,7 +6914,7 @@ img.avatar {
   touch-action: pan-y;
 }
 body {
-  min-width: 320px;
+  min-width: 305px;
   font-family: 'Roboto', '-apple-system', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
