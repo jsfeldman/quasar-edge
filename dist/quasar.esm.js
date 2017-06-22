@@ -9053,14 +9053,14 @@ var QLayout = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=
 
     leftBreakpoint: {
       type: Number,
-      default: 996
+      default: 992
     },
     leftStyle: Object,
     leftClass: Object,
 
     rightBreakpoint: {
       type: Number,
-      default: 996
+      default: 992
     },
     rightStyle: Object,
     rightClass: Object,
