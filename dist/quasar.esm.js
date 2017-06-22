@@ -3058,7 +3058,7 @@ var QCard = {
       classes = data.staticClass,
       prop = ctx.props;
 
-    var cls = ['q-card column no-wrap'];
+    var cls = ['q-card'];
     if (prop.square) {
       cls.push('no-border-radius');
     }
@@ -3066,7 +3066,7 @@ var QCard = {
       cls.push('no-shadow');
     }
     if (prop.inline) {
-      cls.push('inline');
+      cls.push('inline-block');
     }
     if (prop.color) {
       cls.push(("bg-" + (prop.color) + " text-white q-card-dark"));
