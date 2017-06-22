@@ -7268,7 +7268,7 @@ body.platform-android .platform-android-hide {
   .lg,
   .gt-lg,
   .xl {
-    display: none;
+    display: none !important;
   }
 }
 @media (min-width: 576px) and (max-width: 767px) {
@@ -7281,7 +7281,7 @@ body.platform-android .platform-android-hide {
   .lg,
   .gt-lg,
   .xl {
-    display: none;
+    display: none !important;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -7294,7 +7294,7 @@ body.platform-android .platform-android-hide {
   .lg,
   .gt-lg,
   .xl {
-    display: none;
+    display: none !important;
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -7307,7 +7307,7 @@ body.platform-android .platform-android-hide {
   .lt-lg,
   .gt-lg,
   .xl {
-    display: none;
+    display: none !important;
   }
 }
 @media (min-width: 1200px) {
@@ -7320,7 +7320,7 @@ body.platform-android .platform-android-hide {
   .lt-lg,
   .lg,
   .lt-xl {
-    display: none;
+    display: none !important;
   }
 }
 .q-focus-helper {
