@@ -1213,7 +1213,7 @@ var Ripple = {
     var value = ref.value;
     var oldValue = ref.oldValue;
 
-    if (value !== oldValue) {
+    if (value !== oldValue && el.__qripple) {
       el.__qripple.enabled = value !== false;
     }
   },
