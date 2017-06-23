@@ -2380,6 +2380,7 @@ body.with-modal {
 .q-option-inner {
   display: inline-block;
   color: #bdbdbd;
+  line-height: 0;
 }
 .q-option-inner.active {
   color: #027be3;
