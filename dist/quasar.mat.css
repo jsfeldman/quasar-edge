@@ -302,6 +302,7 @@ body.desktop ul.breadcrumb a:hover:after {
 }
 .q-btn.full-width {
   border-radius: 0 !important;
+  white-space: normal;
 }
 .q-btn-no-uppercase {
   text-transform: none;
