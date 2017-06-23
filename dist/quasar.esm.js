@@ -2970,7 +2970,7 @@ var QBtn = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm
     glossy: Boolean,
 
     loader: Boolean,
-    percentage: [Number, String],
+    percentage: Number,
     darkPercentage: Boolean
   },
   data: function data () {
