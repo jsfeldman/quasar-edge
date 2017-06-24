@@ -2941,6 +2941,9 @@ body.desktop .q-stepper-tab.step-done:hover {
     display: none;
   }
 }
+.q-tabs {
+  flex-direction: column;
+}
 .q-tabs-scroller {
   overflow: hidden;
   color: #fff;
