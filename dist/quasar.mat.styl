@@ -2726,8 +2726,9 @@ body.desktop .q-stepper-tab.step-done:hover
   border 0
 .q-tabs-panes:empty
   display none
-.q-tab-icon, .q-tab-label
-  opacity $tabs-unselected-opacity
+.q-tabs-normal
+  .q-tab-icon, .q-tab-label
+    opacity $tabs-unselected-opacity
 .q-tab-border, .q-tabs-position-bar
   color $tabs-color
   border $tabs-border-width solid currentColor

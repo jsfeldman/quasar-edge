@@ -2955,8 +2955,8 @@ body.desktop .q-stepper-tab.step-done:hover {
 .q-tabs-panes:empty {
   display: none;
 }
-.q-tab-icon,
-.q-tab-label {
+.q-tabs-normal .q-tab-icon,
+.q-tabs-normal .q-tab-label {
   opacity: 0.7;
 }
 .q-tab-border,
