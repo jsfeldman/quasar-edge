@@ -470,7 +470,7 @@ function inc (p, amount) {
     else if (p < 65) {
       amount = Math.random() * 3;
     }
-    else if (p < 90) {
+    else if (p < 85) {
       amount = Math.random() * 2;
     }
     else if (p < 99) {
@@ -506,7 +506,7 @@ function restoreAjax () {
   xhr.prototype.send = send;
 }
 
-var QAjaxBar = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"q-loading-bar shadow-1",class:[_vm.position, _vm.animate ? '' : 'no-transition'],style:(_vm.containerStyle)},[_c('div',{staticClass:"q-loading-bar-inner",style:(_vm.innerStyle)})])},staticRenderFns: [],
+var QAjaxBar = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"q-loading-bar shadow-1",class:[_vm.position, _vm.animate ? '' : 'no-transition'],style:(_vm.containerStyle)},[_c('div',{staticClass:"q-loading-bar-inner",class:("bg-" + (_vm.color))})])},staticRenderFns: [],
   name: 'q-ajax-bar',
   props: {
     position: {
@@ -522,7 +522,7 @@ var QAjaxBar = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
     },
     color: {
       type: String,
-      default: '#e21b0c'
+      default: 'red'
     },
     speed: {
       type: Number,
@@ -553,9 +553,6 @@ var QAjaxBar = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
       });
       o[this.sizeProp] = this.size;
       return o
-    },
-    innerStyle: function innerStyle () {
-      return {background: this.color}
     },
     horizontal: function horizontal () {
       return this.position === 'top' || this.position === 'bottom'
