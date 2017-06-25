@@ -10288,15 +10288,15 @@ var TabMixin = {
 
       return cls
     },
-    borderClasses: function borderClasses () {
-      if (this.data.inverted && this.data.color) {
-        return ("text-" + (this.data.color))
+    barStyle: function barStyle () {
+      if (!this.active || !this.data.highlight) {
+        return 'display: none;'
       }
     }
   }
 };
 
-var QRouteTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('router-link',{directives:[{name:"ripple",rawName:"v-ripple.mat",modifiers:{"mat":true}}],staticClass:"q-tab column items-center justify-center relative-position",class:_vm.classes,attrs:{"tag":"div","to":_vm.to,"replace":_vm.replace,"append":_vm.append,"exact":_vm.exact,"event":_vm.routerLinkEventName},nativeOn:{"click":function($event){_vm.select($event);}}},[(_vm.icon)?_c('q-icon',{staticClass:"q-tab-icon",attrs:{"name":_vm.icon}}):_vm._e(),(_vm.label)?_c('span',{staticClass:"q-tab-label",domProps:{"innerHTML":_vm._s(_vm.label)}}):_vm._e(),_vm._v(" "),(_vm.count)?_c('span',{staticClass:"floating label circular"},[_vm._v(_vm._s(_vm.count))]):(_vm.alert)?_c('div',{staticClass:"q-dot"}):_vm._e(),_vm._t("default"),_c('div',{staticClass:"q-tab-border",class:_vm.borderClasses})],2)},staticRenderFns: [],
+var QRouteTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('router-link',{directives:[{name:"ripple",rawName:"v-ripple.mat",modifiers:{"mat":true}}],staticClass:"q-tab column items-center justify-center relative-position",class:_vm.classes,attrs:{"tag":"div","to":_vm.to,"replace":_vm.replace,"append":_vm.append,"exact":_vm.exact,"event":_vm.routerLinkEventName},nativeOn:{"click":function($event){_vm.select($event);}}},[(_vm.icon)?_c('q-icon',{staticClass:"q-tab-icon",attrs:{"name":_vm.icon}}):_vm._e(),(_vm.label)?_c('span',{staticClass:"q-tab-label",domProps:{"innerHTML":_vm._s(_vm.label)}}):_vm._e(),_vm._v(" "),(_vm.count)?_c('span',{staticClass:"floating label circular"},[_vm._v(_vm._s(_vm.count))]):(_vm.alert)?_c('div',{staticClass:"q-dot"}):_vm._e(),_vm._t("default"),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"q-tabs-bar",style:(_vm.barStyle)}):_vm._e()],2)},staticRenderFns: [],
   name: 'q-route-tab',
   components: {
     QIcon: QIcon
@@ -10332,7 +10332,7 @@ var QRouteTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
   }
 };
 
-var QTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"ripple",rawName:"v-ripple.mat",modifiers:{"mat":true}}],staticClass:"q-tab column items-center justify-center relative-position",class:_vm.classes,on:{"click":_vm.select}},[(_vm.icon)?_c('q-icon',{staticClass:"q-tab-icon",attrs:{"name":_vm.icon}}):_vm._e(),(_vm.label)?_c('span',{staticClass:"q-tab-label",domProps:{"innerHTML":_vm._s(_vm.label)}}):_vm._e(),(_vm.count)?_c('q-chip',{attrs:{"floating":""}},[_vm._v(_vm._s(_vm.count))]):(_vm.alert)?_c('div',{staticClass:"q-dot"}):_vm._e(),_vm._t("default"),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"q-tab-border",class:_vm.borderClasses}):_vm._e()],2)},staticRenderFns: [],
+var QTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"ripple",rawName:"v-ripple.mat",modifiers:{"mat":true}}],staticClass:"q-tab column items-center justify-center relative-position",class:_vm.classes,on:{"click":_vm.select}},[(_vm.icon)?_c('q-icon',{staticClass:"q-tab-icon",attrs:{"name":_vm.icon}}):_vm._e(),(_vm.label)?_c('span',{staticClass:"q-tab-label",domProps:{"innerHTML":_vm._s(_vm.label)}}):_vm._e(),(_vm.count)?_c('q-chip',{attrs:{"floating":""}},[_vm._v(_vm._s(_vm.count))]):(_vm.alert)?_c('div',{staticClass:"q-dot"}):_vm._e(),_vm._t("default"),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"q-tabs-bar",style:(_vm.barStyle)}):_vm._e()],2)},staticRenderFns: [],
   name: 'q-tab',
   components: {
     QIcon: QIcon,
@@ -10378,9 +10378,8 @@ var QTabPane = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
 var scrollNavigationSpeed = 5;
 var debounceDelay = 50; // in ms
 
-var QTabs = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"q-tabs flex no-wrap",class:[ ("q-tabs-position-" + (_vm.position)), ("q-tabs-" + (_vm.inverted ? 'inverted' : 'normal')), _vm.noPaneBorder ? 'q-tabs-no-pane-border' : '', _vm.twoLines ? 'q-tabs-two-lines' : '' ]},[_c('div',{ref:"tabs",staticClass:"q-tabs-head row",class:( obj = { glossy: _vm.glossy }, obj[("q-tabs-align-" + (_vm.align))] = true, obj[("bg-" + (_vm.color))] = !_vm.inverted && _vm.color, obj )},[_c('div',{ref:"scroller",staticClass:"q-tabs-scroller row no-wrap"},[_vm._t("title"),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"relative-position self-stretch"},[_c('div',{ref:"posbar",staticClass:"q-tabs-position-bar",class:( obj$1 = {}, obj$1[("text-" + (_vm.color))] = _vm.inverted && _vm.color, obj$1 ),on:{"transitionend":_vm.__updatePosbarTransition}})]):_vm._e()],2),_c('div',{ref:"leftScroll",staticClass:"row items-center justify-center q-tabs-left-scroll",on:{"mousedown":function($event){_vm.__animScrollTo(0);},"touchstart":function($event){_vm.__animScrollTo(0);},"mouseup":_vm.__stopAnimScroll,"touchend":_vm.__stopAnimScroll}},[_c('q-icon',{attrs:{"name":"chevron_left"}})],1),_c('div',{ref:"rightScroll",staticClass:"row items-center justify-center q-tabs-right-scroll",on:{"mousedown":function($event){_vm.__animScrollTo(9999);},"touchstart":function($event){_vm.__animScrollTo(9999);},"mouseup":_vm.__stopAnimScroll,"touchend":_vm.__stopAnimScroll}},[_c('q-icon',{attrs:{"name":"chevron_right"}})],1)]),_c('div',{staticClass:"q-tabs-panes"},[_vm._t("default")],2)])
-var obj;
-var obj$1;},staticRenderFns: [],
+var QTabs = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"q-tabs flex no-wrap",class:[ ("q-tabs-position-" + (_vm.position)), ("q-tabs-" + (_vm.inverted ? 'inverted' : 'normal')), _vm.noPaneBorder ? 'q-tabs-no-pane-border' : '', _vm.twoLines ? 'q-tabs-two-lines' : '' ]},[_c('div',{ref:"tabs",staticClass:"q-tabs-head row",class:( obj = { glossy: _vm.glossy }, obj[("q-tabs-align-" + (_vm.align))] = true, obj[("bg-" + (_vm.color))] = !_vm.inverted && _vm.color, obj )},[_c('div',{ref:"scroller",staticClass:"q-tabs-scroller row no-wrap"},[_vm._t("title"),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"relative-position self-stretch q-tabs-global-bar-container",class:[_vm.inverted && _vm.color ? ("text-" + (_vm.color)) : '', _vm.data.highlight ? 'highlight' : '']},[_c('div',{ref:"posbar",staticClass:"q-tabs-bar q-tabs-global-bar",on:{"transitionend":_vm.__updatePosbarTransition}})]):_vm._e()],2),_c('div',{ref:"leftScroll",staticClass:"row items-center justify-center q-tabs-left-scroll",on:{"mousedown":function($event){_vm.__animScrollTo(0);},"touchstart":function($event){_vm.__animScrollTo(0);},"mouseup":_vm.__stopAnimScroll,"touchend":_vm.__stopAnimScroll}},[_c('q-icon',{attrs:{"name":"chevron_left"}})],1),_c('div',{ref:"rightScroll",staticClass:"row items-center justify-center q-tabs-right-scroll",on:{"mousedown":function($event){_vm.__animScrollTo(9999);},"touchstart":function($event){_vm.__animScrollTo(9999);},"mouseup":_vm.__stopAnimScroll,"touchend":_vm.__stopAnimScroll}},[_c('q-icon',{attrs:{"name":"chevron_right"}})],1)]),_c('div',{staticClass:"q-tabs-panes"},[_vm._t("default")],2)])
+var obj;},staticRenderFns: [],
   name: 'q-tabs',
   components: {
     QIcon: QIcon
@@ -10405,8 +10404,13 @@ var obj$1;},staticRenderFns: [],
   },
   data: function data () {
     return {
-      tab: {},
+      currentEl: null,
+      posbar: {
+        width: 0,
+        left: 0
+      },
       data: {
+        highlight: true,
         tabName: this.value || '',
         color: this.color,
         inverted: this.inverted
@@ -10432,108 +10436,101 @@ var obj$1;},staticRenderFns: [],
   },
   methods: {
     selectTab: function selectTab (name) {
-      var this$1 = this;
-
-      clearTimeout(this.timer);
-      this.__beforePositionContract = function () {};
-
-      var emitInput = this.value !== name;
-      if (!emitInput && this.data.tabName === name) {
+      if (this.data.tabName === name) {
         return
+      }
+
+      this.data.tabName = name;
+      this.$emit('select', name);
+
+      if (this.value !== name) {
+        this.$emit('input', name);
       }
 
       var el = this.__getTabElByName(name);
 
-      if (this.$q.theme === 'ios') {
-        this.__setTab({name: name, el: el}, emitInput);
-        return
+      if (el) {
+        this.__scrollToTab(el);
       }
 
-      var posbarClass = this.$refs.posbar.classList;
-      posbarClass.remove('expand', 'contract');
+      if (this.$q.theme !== 'ios') {
+        this.currentEl = el;
+        this.__repositionBar();
+      }
+    },
+    __repositionBar: function __repositionBar () {
+      var this$1 = this;
+
+      clearTimeout(this.timer);
+
+      var needsUpdate = false;
+      var
+        ref = this.$refs.posbar,
+        el = this.currentEl;
+
+      if (this.data.highlight !== false) {
+        this.data.highlight = false;
+        needsUpdate = true;
+      }
 
       if (!el) {
-        posbarClass.add('invisible');
-        this.__setTab({name: name}, emitInput);
+        this.finalPosbar = {width: 0, left: 0};
+        this.__setPositionBar(0, 0);
         return
       }
 
-      var
-        offsetReference = this.$refs.posbar.parentNode.offsetLeft,
-        width$$1 = el.getBoundingClientRect().width,
-        offsetLeft = el.offsetLeft - offsetReference,
-        index = this.$children.findIndex(function (child) { return child.name === name; });
+      var offsetReference = ref.parentNode.offsetLeft;
+
+      if (needsUpdate && this.oldEl) {
+        this.__setPositionBar(
+          this.oldEl.getBoundingClientRect().width,
+          this.oldEl.offsetLeft - offsetReference
+        );
+      }
 
       this.timer = setTimeout(function () {
-        if (!this$1.tab.el) {
-          posbarClass.add('invisible');
-          this$1.__setTab({name: name, el: el, width: width$$1, offsetLeft: offsetLeft, index: index}, emitInput);
-          return
-        }
+        var
+          width$$1 = el.getBoundingClientRect().width,
+          left = el.offsetLeft - offsetReference;
 
-        this$1.tab.width = this$1.tab.el.getBoundingClientRect().width;
-        this$1.tab.offsetLeft = this$1.tab.el.offsetLeft - offsetReference;
-        this$1.tab.index = this$1.$children.findIndex(function (child) { return child.name === this$1.tab.name; });
-
-        this$1.__setPositionBar(this$1.tab.width, this$1.tab.offsetLeft);
-
-        this$1.timer = setTimeout(function () {
-          posbarClass.remove('invisible');
-          posbarClass.add('expand');
-
-          if (this$1.tab.index < index) {
-            if (offsetLeft + width$$1 - this$1.tab.offsetLeft === this$1.tab.offsetLeft) {
-              return this$1.__setTab({name: name, el: el, width: width$$1, offsetLeft: offsetLeft, index: index}, emitInput)
-            }
-            this$1.__setPositionBar(
-              offsetLeft + width$$1 - this$1.tab.offsetLeft,
-              this$1.tab.offsetLeft
-            );
-          }
-          else {
-            if (this$1.tab.offsetLeft === offsetLeft) {
-              return this$1.__setTab({name: name, el: el, width: width$$1, offsetLeft: offsetLeft, index: index}, emitInput)
-            }
-            this$1.__setPositionBar(
-              this$1.tab.offsetLeft + this$1.tab.width - offsetLeft,
-              offsetLeft
-            );
-          }
-
-          this$1.__beforePositionContract = function () {
-            this$1.__setTab({name: name, el: el, width: width$$1, offsetLeft: offsetLeft, index: index}, emitInput);
-          };
-        }, 30);
-      }, 30);
-    },
-    __setTab: function __setTab (data, emitInput) {
-      this.data.tabName = data.name;
-      if (emitInput) {
-        this.$emit('input', data.name);
-      }
-      this.$emit('select', data.name);
-      this.__scrollToTab(data.el);
-      this.tab = data;
+        ref.classList.remove('contract');
+        this$1.oldEl = el;
+        this$1.finalPosbar = {width: width$$1, left: left};
+        this$1.__setPositionBar(
+          this$1.posbar.left < left
+            ? left + width$$1 - this$1.posbar.left
+            : this$1.posbar.left + this$1.posbar.width - left,
+          this$1.posbar.left < left
+            ? this$1.posbar.left
+            : left
+        );
+      }, 20);
     },
     __setPositionBar: function __setPositionBar (width$$1, left) {
       if ( width$$1 === void 0 ) width$$1 = 0;
       if ( left === void 0 ) left = 0;
 
+      if (this.posbar.width === width$$1 && this.posbar.left === left) {
+        this.__updatePosbarTransition();
+        return
+      }
+      this.posbar = {width: width$$1, left: left};
       css(this.$refs.posbar, cssTransform(("translateX(" + left + "px) scaleX(" + width$$1 + ")")));
     },
     __updatePosbarTransition: function __updatePosbarTransition () {
-      var cls = this.$refs.posbar.classList;
+      if (
+        this.finalPosbar.width === this.posbar.width &&
+        this.finalPosbar.left === this.posbar.left
+      ) {
+        this.posbar = {};
+        if (this.data.highlight !== true) {
+          this.data.highlight = true;
+        }
+        return
+      }
 
-      if (cls.contains('expand')) {
-        this.__beforePositionContract();
-        cls.remove('expand');
-        cls.add('contract');
-        this.__setPositionBar(this.tab.width, this.tab.offsetLeft);
-      }
-      else if (cls.contains('contract')) {
-        cls.remove('contract');
-        cls.add('invisible');
-      }
+      this.$refs.posbar.classList.add('contract');
+      this.__setPositionBar(this.finalPosbar.width, this.finalPosbar.left);
     },
     __redraw: function __redraw () {
       if (!this.$q.platform.is.desktop) {

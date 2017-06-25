@@ -2958,21 +2958,12 @@ body.desktop .q-stepper-tab.step-done:hover {
 .q-tabs-panes:empty {
   display: none;
 }
+.q-tabs-normal .q-tabs-bar {
+  color: #fff;
+}
 .q-tabs-normal .q-tab-icon,
 .q-tabs-normal .q-tab-label {
   opacity: 0.7;
-}
-.q-tab-border,
-.q-tabs-position-bar {
-  color: #fff;
-  border: 2px solid currentColor;
-  border-width: 0;
-}
-.q-tab-border {
-  border-width: 0;
-  position: absolute;
-  left: 0;
-  right: 0;
 }
 .q-tab {
   cursor: pointer;
@@ -3082,22 +3073,28 @@ body.desktop .q-stepper-tab.step-done:hover {
 .q-tabs-align-right {
   justify-content: flex-end;
 }
-.q-tabs-position-bar {
+.q-tabs-bar {
+  border: 2px solid currentColor;
+  border-width: 0;
   position: absolute;
   height: 0;
-  width: 1px;
   left: 0;
+  right: 0;
+}
+.q-tabs-global-bar {
+  width: 1px;
   transform: scale(0);
   transform-origin: left center;
   transition: transform;
-}
-.q-tabs-position-bar.expand {
   transition-duration: 0.15s;
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
-.q-tabs-position-bar.contract {
+.q-tabs-global-bar.contract {
   transition-duration: 0.18s;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+.q-tabs-global-bar-container.highlight > .q-tabs-global-bar {
+  display: none;
 }
 .q-tabs-two-lines .q-tab {
   white-space: normal;
@@ -3108,23 +3105,11 @@ body.desktop .q-stepper-tab.step-done:hover {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-.q-tabs-position-top .q-tab.active .q-tab-border {
-  border-bottom-width: 2px;
-}
-.q-tabs-position-top .q-tab-border {
-  bottom: 0;
-}
-.q-tabs-position-top .q-tabs-position-bar {
+.q-tabs-position-top .q-tabs-bar {
   bottom: 0;
   border-bottom-width: 2px;
 }
-.q-tabs-position-bottom .q-tab.active .q-tab-border {
-  border-top-width: 2px;
-}
-.q-tabs-position-bottom .q-tab-border {
-  top: 0;
-}
-.q-tabs-position-bottom .q-tabs-position-bar {
+.q-tabs-position-bottom .q-tabs-bar {
   top: 0;
   border-top-width: 2px;
 }
@@ -3142,10 +3127,6 @@ body.desktop .q-stepper-tab.step-done:hover {
 }
 .q-tabs-inverted .q-tabs-head {
   background: transparent;
-}
-.q-tabs-inverted .q-tabs-position-bar,
-.q-tabs-inverted .q-tab-border {
-  color: #027be3;
 }
 .q-tabs-inverted.q-tabs-position-top .q-tabs-panes {
   border-top: 1px solid rgba(0,0,0,0.1);
