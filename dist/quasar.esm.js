@@ -642,7 +642,8 @@ var QIcon = {
     name: String,
     mat: String,
     ios: String,
-    color: String
+    color: String,
+    size: String
   },
   render: function render (h, ctx) {
     var name, text;
@@ -661,7 +662,7 @@ var QIcon = {
     else if (icon.startsWith('fa-')) {
       name = "fa " + icon;
     }
-    else if (icon.startsWith('ion-')) {
+    else if (icon.startsWith('ion-') || icon.startsWith('icon-')) {
       name = "" + icon;
     }
     else {
@@ -670,10 +671,19 @@ var QIcon = {
     }
 
     data.staticClass = (cls ? cls + ' ' : '') + "q-icon" + (name.length ? (" " + name) : '') + (prop.color ? (" text-" + (prop.color)) : '');
+
     if (!data.hasOwnProperty('attrs')) {
       data.attrs = {};
     }
     data.attrs['aria-hidden'] = 'true';
+
+    if (prop.size) {
+      var style = "font-size: " + (prop.size) + ";";
+      data.style = data.style
+        ? [data.style, style]
+        : style;
+    }
+
     return h('i', data, text ? [text, ctx.children] : [' ', ctx.children])
   }
 };
