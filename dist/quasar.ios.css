@@ -857,16 +857,15 @@ body.desktop ul.breadcrumb a:hover:after {
   table-layout: fixed;
   empty-cells: hide;
 }
-.q-data-table table tr {
-  background: #fff;
-}
 .q-data-table table td,
 .q-data-table table th {
+  background: #fff;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
-.q-data-table table tbody tr:nth-child(odd) {
+.q-data-table table tbody tr:nth-child(odd) td,
+.q-data-table table tbody tr:nth-child(odd) th {
   background: #eee;
 }
 .q-data-table table thead tr {
