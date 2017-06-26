@@ -2765,6 +2765,10 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
       type: Number,
       default: 500
     },
+    filter: {
+      type: Function,
+      default: filter
+    },
     staticData: Object,
     separator: Boolean
   },
@@ -2823,7 +2827,7 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
 
       if (this.staticData) {
         this.searchId = '';
-        this.results = filter(terms, this.staticData);
+        this.results = this.filter(terms, this.staticData);
         if (this.$q.platform.is.desktop) {
           this.selectedIndex = 0;
         }
