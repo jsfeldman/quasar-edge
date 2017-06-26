@@ -9810,7 +9810,7 @@ var QPullToRefresh = {render: function(){var _vm=this;var _h=_vm.$createElement;
   }
 };
 
-var QScrollArea = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.$q.platform.is.desktop)?_c('div',{staticClass:"q-scrollarea scroll relative-position overflow-hidden",on:{"wheel":_vm.__mouseWheel,"mousewheel":_vm.__mouseWheel,"dommousescroll":_vm.__mouseWheel,"mouseenter":function($event){_vm.hover = true;},"mouseleave":function($event){_vm.hover = false;}}},[_c('div',{directives:[{name:"touch-pan",rawName:"v-touch-pan.vertical.nomouse",value:(_vm.__panContainer),expression:"__panContainer",modifiers:{"vertical":true,"nomouse":true}}],staticClass:"absolute",style:(_vm.mainStyle)},[_vm._t("default"),_c('q-resize-observable',{on:{"resize":_vm.__updateScrollHeight}}),_c('q-scroll-observable',{on:{"scroll":_vm.__updateScroll}})],2),_c('q-resize-observable',{on:{"resize":_vm.__updateContainer}}),_c('div',{directives:[{name:"touch-pan",rawName:"v-touch-pan.vertical",value:(_vm.__panThumb),expression:"__panThumb",modifiers:{"vertical":true}}],staticClass:"q-scrollarea-thumb absolute-right",class:{'invisible-thumb': _vm.thumbHidden},style:(_vm.style)})],1):_c('div',{staticClass:"scroll relative-position",style:(_vm.contentStyle)},[_vm._t("default")],2)},staticRenderFns: [],
+var QScrollArea = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.$q.platform.is.desktop)?_c('div',{staticClass:"q-scrollarea relative-position",on:{"mouseenter":function($event){_vm.hover = true;},"mouseleave":function($event){_vm.hover = false;}}},[_c('div',{directives:[{name:"touch-pan",rawName:"v-touch-pan.vertical.nomouse",value:(_vm.__panContainer),expression:"__panContainer",modifiers:{"vertical":true,"nomouse":true}}],ref:"target",staticClass:"scroll relative-position overflow-hidden full-height full-width",on:{"wheel":_vm.__mouseWheel,"mousewheel":_vm.__mouseWheel,"dommousescroll":_vm.__mouseWheel}},[_c('div',{staticClass:"absolute full-width",style:(_vm.mainStyle)},[_vm._t("default"),_c('q-resize-observable',{staticClass:"resize-obs",on:{"resize":_vm.__updateScrollHeight}})],2),_c('q-scroll-observable',{staticClass:"scroll-obs",on:{"scroll":_vm.__updateScroll}})],1),_c('q-resize-observable',{staticClass:"main-resize-obs",on:{"resize":_vm.__updateContainer}}),_c('div',{directives:[{name:"touch-pan",rawName:"v-touch-pan.vertical",value:(_vm.__panThumb),expression:"__panThumb",modifiers:{"vertical":true}}],staticClass:"q-scrollarea-thumb absolute-right",class:{'invisible-thumb': _vm.thumbHidden},style:(_vm.style)})],1):_c('div',{staticClass:"q-scroll-area scroll relative-position",style:(_vm.contentStyle)},[_vm._t("default")],2)},staticRenderFns: [],
   name: 'q-scroll-area',
   components: {
     QResizeObservable: QResizeObservable,
@@ -9848,16 +9848,13 @@ var QScrollArea = {render: function(){var _vm=this;var _h=_vm.$createElement;var
   },
   computed: {
     thumbHidden: function thumbHidden () {
-      return this.thumbHeight >= this.scrollHeight || (!this.active && !this.hover)
+      return this.scrollHeight <= this.containerHeight || (!this.active && !this.hover)
     },
     thumbHeight: function thumbHeight () {
-      return Math.round(Math.max(20, this.containerHeight * this.containerHeight / this.scrollHeight))
+      return Math.round(between(this.containerHeight * this.containerHeight / this.scrollHeight, 50, this.containerHeight))
     },
     style: function style () {
-      var top = Math.min(
-        this.scrollPosition + (this.scrollPercentage * (this.containerHeight - this.thumbHeight)),
-        this.scrollHeight - this.thumbHeight
-      );
+      var top = this.scrollPercentage * (this.containerHeight - this.thumbHeight);
       return extend({}, this.thumbStyle, {
         top: (top + "px"),
         height: ((this.thumbHeight) + "px")
@@ -9893,25 +9890,28 @@ var QScrollArea = {render: function(){var _vm=this;var _h=_vm.$createElement;var
       }
     },
     __panThumb: function __panThumb (e) {
+      e.evt.preventDefault();
+
       if (e.isFirst) {
         this.refPos = this.scrollPosition;
         this.__setActive(true, true);
+        document.body.classList.add('non-selectable');
+        if (document.selection) {
+          document.selection.empty();
+        }
+        else if (window.getSelection) {
+          window.getSelection().removeAllRanges();
+        }
       }
       if (e.isFinal) {
         this.__setActive(false);
+        document.body.classList.remove('non-selectable');
       }
 
-      var
-        sign = (e.direction === 'down' ? 1 : -1),
-        multiplier = (this.scrollHeight - this.containerHeight) / (this.containerHeight - this.thumbHeight);
-
-      this.$el.scrollTop = this.refPos + sign * e.distance.y * multiplier;
+      var multiplier = (this.scrollHeight - this.containerHeight) / (this.containerHeight - this.thumbHeight);
+      this.$refs.target.scrollTop = this.refPos + (e.direction === 'down' ? 1 : -1) * e.distance.y * multiplier;
     },
     __panContainer: function __panContainer (e) {
-      if (e.evt.target.closest('.scroll') !== this.$el) {
-        return
-      }
-
       if (e.isFirst) {
         this.refPos = this.scrollPosition;
         this.__setActive(true, true);
@@ -9920,17 +9920,15 @@ var QScrollArea = {render: function(){var _vm=this;var _h=_vm.$createElement;var
         this.__setActive(false);
       }
 
-      var el = this.$el;
-      el.scrollTop = this.refPos + (e.direction === 'down' ? -1 : 1) * e.distance.y;
-      if (el.scrollTop > 0 && el.scrollTop + this.containerHeight < this.scrollHeight) {
+      var pos = this.refPos + (e.direction === 'down' ? -1 : 1) * e.distance.y;
+      this.$refs.target.scrollTop = pos;
+
+      if (pos > 0 && pos + this.containerHeight < this.scrollHeight) {
         e.evt.preventDefault();
       }
     },
     __mouseWheel: function __mouseWheel (e) {
-      var el = this.$el;
-      if (e.target.closest('.scroll') !== el) {
-        return
-      }
+      var el = this.$refs.target;
       el.scrollTop += getMouseWheelDistance(e).pixelY;
       if (el.scrollTop > 0 && el.scrollTop + this.containerHeight < this.scrollHeight) {
         e.preventDefault();

@@ -2598,9 +2598,6 @@ body.with-modal {
 .q-scrollarea-thumb.invisible-thumb {
   opacity: 0 !important;
 }
-.q-scrollarea > .absolute {
-  width: 100%;
-}
 .q-toolbar .q-search {
   background: rgba(255,255,255,0.25);
   flex: 1 1 auto;
