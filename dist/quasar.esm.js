@@ -6939,7 +6939,7 @@ var QDataTable = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
       return this.config.bodyStyle || {}
     },
     hasToolbar: function hasToolbar () {
-      return this.config.title || this.filteringCols.length || this.config.columnPicker || this.config.refresh
+      return this.config.title || this.config.columnPicker || this.config.refresh
     },
     hasHeader: function hasHeader () {
       return !this.config.noHeader
