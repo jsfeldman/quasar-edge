@@ -811,6 +811,9 @@ body.desktop ul.breadcrumb a:hover:after {
   width: 26px;
   min-width: 26px;
 }
+.q-chips-input input {
+  min-width: 70px;
+}
 .q-collapsible-sub-item {
   padding: 8px 16px;
 }
@@ -1908,7 +1911,6 @@ body.desktop table.q-table.highlight tbody tr:hover {
   padding: 0;
   color: #000;
   background: transparent;
-  min-width: 70px;
   min-height: 18px;
   font-size: inherit;
   overflow: hidden;
@@ -5963,6 +5965,36 @@ img.avatar {
 }
 .offset-12 {
   margin-left: 100%;
+}
+.xs-gutter {
+  margin: -8px 0 0 -8px;
+}
+.xs-gutter > div {
+  padding: 8px 0 0 8px;
+}
+.sm-gutter {
+  margin: -16px 0 0 -16px;
+}
+.sm-gutter > div {
+  padding: 16px 0 0 16px;
+}
+.md-gutter {
+  margin: -32px 0 0 -32px;
+}
+.md-gutter > div {
+  padding: 32px 0 0 32px;
+}
+.lg-gutter {
+  margin: -48px 0 0 -48px;
+}
+.lg-gutter > div {
+  padding: 48px 0 0 48px;
+}
+.xl-gutter {
+  margin: -64px 0 0 -64px;
+}
+.xl-gutter > div {
+  padding: 64px 0 0 64px;
 }
 @media (min-width: 0) {
   .col-xs {
