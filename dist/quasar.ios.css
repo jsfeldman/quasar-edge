@@ -1107,8 +1107,6 @@ body.desktop .q-datetime-col-wrapper {
 .q-fab-icon,
 .q-fab-active-icon {
   position: absolute;
-  top: 15px;
-  left: 15px;
   transition: opacity 0.4s, transform 0.4s;
 }
 .q-fab-icon {
@@ -1156,10 +1154,6 @@ body.desktop .q-datetime-col-wrapper {
   top: 120%;
   left: 0;
   right: 0;
-}
-body.platform-ios .q-fab[class*='absolute-'],
-body.platform-ios .q-fab[class*='fixed-'] {
-  transform: translate3d(0, -50px, 0);
 }
 .q-field {
   margin-top: 16px;
