@@ -2627,7 +2627,18 @@ function push (child, h, name, slot, replace, conf) {
     child.push(h(name, slot));
     return
   }
-  var props = Object.values(conf).some(function (p) { return p !== void 0 && p !== true; });
+  var props, v = false;
+  if (!slot) {
+    for (var p in conf) {
+      if (conf.hasOwnProperty(p)) {
+        v = conf[p];
+        if (v !== void 0 && v !== true) {
+          props = true;
+          break
+        }
+      }
+    }
+  }
   if (props || slot) {
     child.push(h(name, props ? {props: conf} : {}, slot));
   }
