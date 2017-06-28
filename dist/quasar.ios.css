@@ -5543,7 +5543,8 @@ img.avatar {
 .justify-end {
   justify-content: flex-end;
 }
-.justify-center {
+.justify-center,
+.flex-center {
   justify-content: center;
 }
 .justify-between {
@@ -5558,7 +5559,8 @@ img.avatar {
 .items-end {
   align-items: flex-end;
 }
-.items-center {
+.items-center,
+.flex-center {
   align-items: center;
 }
 .items-baseline {

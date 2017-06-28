@@ -4394,6 +4394,9 @@ for $name, $size in $sizes
     align-self baseline
   &stretch
     align-self stretch
+.flex-center
+  @extend .items-center
+  @extend .justify-center
 for $i in (1..$flex-cols)
   .col-{$i}
     flex 0 0 (round($i / $flex-cols * 100, 4))%
