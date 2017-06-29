@@ -8030,9 +8030,6 @@ var InlineDatetimeMat = {render: function(){var _vm=this;var _h=_vm.$createEleme
         : days
     },
 
-    dayString: function dayString () {
-      return formatDate(this.model, 'D')
-    },
     monthString: function monthString () {
       return ("" + (this.monthNames[this.month - 1].slice(0, 3)))
     },
