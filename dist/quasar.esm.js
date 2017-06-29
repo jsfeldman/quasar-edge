@@ -7326,8 +7326,10 @@ var formatter = {
   },
 
   // Month Name: January, February, ...
-  MMMM: function MMMM (date) {
-    return monthNames[date.getMonth()]
+  MMMM: function MMMM (date, opts) {
+    if ( opts === void 0 ) opts = {};
+
+    return (opts.monthNames || monthNames)[date.getMonth()]
   },
 
   // Quarter: 1, 2, 3, 4
@@ -7371,8 +7373,10 @@ var formatter = {
   },
 
   // Day of week: Sunday, Monday, ...
-  dddd: function dddd (date) {
-    return dayNames[date.getDay()]
+  dddd: function dddd (date, opts) {
+    if ( opts === void 0 ) opts = {};
+
+    return (opts.dayNames || dayNames)[date.getDay()]
   },
 
   // Day of ISO week: 1, 2, ..., 7
@@ -7473,7 +7477,7 @@ var formatter = {
   }
 };
 
-function formatDate (val, mask) {
+function formatDate (val, mask, opts) {
   if ( mask === void 0 ) mask = 'YYYY-MM-DDTHH:mm:ss.SSSZ';
 
   if (!val) {
@@ -7484,7 +7488,7 @@ function formatDate (val, mask) {
 
   return mask.replace(token, function (match) {
     if (match in formatter) {
-      return formatter[match](date)
+      return formatter[match](date, opts)
     }
     return match
   })
@@ -8276,7 +8280,10 @@ var QDatetime = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
         format = 'YYYY-MM-DD HH:mm:ss';
       }
 
-      return formatDate(this.value, format)
+      return formatDate(this.value, format, {
+        dayNames: this.dayNames,
+        monthNames: this.monthNames
+      })
     }
   },
   methods: {
