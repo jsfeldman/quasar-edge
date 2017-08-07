@@ -753,7 +753,8 @@ var QAlert = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
       type: String,
       validator: function (v) { return [
         'top', 'top-right', 'right', 'bottom-right',
-        'bottom', 'bottom-left', 'left', 'top-left'
+        'bottom', 'bottom-left', 'left', 'top-left',
+        'top-center', 'bottom-center'
       ].includes(v); }
     }
   },
@@ -777,10 +778,14 @@ var QAlert = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
       return this.icon || typeIcon[this.color] || typeIcon.warning
     },
     containerClass: function containerClass () {
-      var
-        cls = [],
-        pos = this.position;
+      var cls = [];
+      var pos = this.position;
+
       if (pos) {
+        if (pos.indexOf('center') > -1) {
+          cls.push('row justify-center');
+          pos = pos.split('-')[0];
+        }
         cls.push(("fixed-" + pos + (pos === 'left' || pos === 'right' ? ' row items-center' : '') + " z-alert"));
       }
       if (this.inline) {
