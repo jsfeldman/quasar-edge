@@ -11056,6 +11056,13 @@ var QUploader = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
     },
     abort: function abort () {
       this.xhrs.forEach(function (xhr) { xhr.abort(); });
+    },
+    reset: function reset () {
+      this.abort();
+      this.files = [];
+      this.queue = [];
+      this.__computeTotalSize();
+      this.$emit('reset');
     }
   }
 };
