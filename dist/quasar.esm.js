@@ -4320,7 +4320,7 @@ function additionalCSS (theme, position) {
 var duration = 200;
 var openedModalNumber = 0;
 
-var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-transition',{attrs:{"name":_vm.modalTransition,"enter":_vm.enterClass,"leave":_vm.leaveClass}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.active),expression:"active"}],staticClass:"modal fullscreen row",class:_vm.modalClasses,on:{"click":function($event){_vm.click();}}},[_c('div',{ref:"content",staticClass:"modal-content scroll",class:_vm.contentClasses,style:(_vm.modalCss),on:{"click":function($event){$event.stopPropagation();}}},[_vm._t("default")],2)])])},staticRenderFns: [],
+var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-transition',{attrs:{"name":_vm.modalTransition,"enter":_vm.enterClass,"leave":_vm.leaveClass}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.active),expression:"active"}],staticClass:"modal fullscreen row",class:_vm.modalClasses,on:{"mousedown":function($event){_vm.__dismiss();},"touchstart":function($event){_vm.__dismiss();}}},[_c('div',{ref:"content",staticClass:"modal-content scroll",class:_vm.contentClasses,style:(_vm.modalCss),on:{"mousedown":function($event){$event.stopPropagation();},"touchstart":function($event){$event.stopPropagation();}}},[_vm._t("default")],2)])])},staticRenderFns: [],
   name: 'q-modal',
   components: {
     QTransition: QTransition
@@ -4482,7 +4482,7 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
         this.open(done);
       }
     },
-    click: function click (onClick) {
+    __dismiss: function __dismiss (onClick) {
       if (this.noBackdropDismiss) {
         return
       }
