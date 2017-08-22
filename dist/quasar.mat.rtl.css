@@ -2483,7 +2483,6 @@ body.with-modal {
   position: absolute;
   top: 0;
   bottom: 0;
-  border-radius: $progress-border-radius;
   transition: width 0.3s linear;
 }
 .q-progress-model.indeterminate:before,
