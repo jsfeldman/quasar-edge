@@ -1,5 +1,5 @@
 /*
- * Quasar Framework v0.14.0
+ * Quasar Framework v0.14.2
  * (c) 2017 Razvan Stoenescu
  * Released under the MIT License.
  */
@@ -712,13 +712,12 @@ body.desktop ul.breadcrumb a:hover:after {
   opacity: 0;
 }
 .q-chip {
-  height: 32px;
+  min-height: 32px;
   padding: 0 12px;
   font-size: 14px;
   border: #e0e0e0;
   border-radius: 2rem;
   cursor: default;
-  white-space: nowrap;
   vertical-align: middle;
   color: #000;
   background: #f4f4f4;
@@ -726,6 +725,10 @@ body.desktop ul.breadcrumb a:hover:after {
 .q-chip .q-icon {
   font-size: 24px;
   line-height: 1;
+}
+.q-chip .q-chip-main {
+  padding: 8px 0 8px;
+  line-height: initial;
 }
 .q-chip .q-chip-side {
   border-radius: 50%;
@@ -828,7 +831,11 @@ body.desktop ul.breadcrumb a:hover:after {
   border-bottom-left-radius: 0;
 }
 .q-chip.small {
-  height: 26px;
+  min-height: 26px;
+}
+.q-chip.small .q-chip-main {
+  padding: 4px 0 4px;
+  line-height: initial;
 }
 .q-chip.small .q-chip-side {
   height: 26px;
@@ -842,7 +849,7 @@ body.desktop ul.breadcrumb a:hover:after {
   padding: 8px 16px;
 }
 .q-collapsible-sub-item.indent {
-  padding-right: $collapsible-menu-left-padding;
+  padding-right: 48px;
   padding-left: 0;
 }
 .q-collapsible-sub-item .q-card {
