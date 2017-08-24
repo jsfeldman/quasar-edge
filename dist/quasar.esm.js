@@ -999,6 +999,11 @@ function rightClick (e) {
   return false
 }
 
+function getEventKey (e) {
+  e = getEvent(e);
+  return e.which || e.keyCode
+}
+
 function position (e) {
   var posx, posy;
   e = getEvent(e);
@@ -1104,6 +1109,7 @@ function getMouseWheelDistance (e) {
 
 var event = Object.freeze({
 	rightClick: rightClick,
+	getEventKey: getEventKey,
 	position: position,
 	targetElement: targetElement,
 	getMouseWheelDistance: getMouseWheelDistance
@@ -3504,6 +3510,7 @@ var CarouselMixin = {
       type: Boolean,
       default: true
     },
+    handleArrowKeys: Boolean,
     autoplay: [Number, Boolean]
   }
 };
@@ -3533,6 +3540,9 @@ var QCarousel = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
     },
     infinite: function infinite () {
       this.__planAutoPlay();
+    },
+    handleArrowKeys: function handleArrowKeys (v) {
+      this.__setArrowKeys(v);
     }
   },
   computed: {
@@ -3726,6 +3736,20 @@ var QCarousel = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
           );
         }
       });
+    },
+    __handleArrowKey: function __handleArrowKey (e) {
+      var key = getEventKey(e);
+
+      if (key === 37) { // left arrow key
+        this.previous();
+      }
+      else if (key === 39) { // right arrow key
+        this.next();
+      }
+    },
+    __setArrowKeys: function __setArrowKeys (/* boolean */ state) {
+      var op = (state === true ? 'add' : 'remove') + "EventListener";
+      document[op]('keydown', this.__handleArrowKey);
     }
   },
   beforeUpdate: function beforeUpdate () {
@@ -3743,10 +3767,16 @@ var QCarousel = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
       this$1.container = this$1.$el.parentNode;
       this$1.slidesNumber = this$1.__getSlidesNumber();
       this$1.__planAutoPlay();
+      if (this$1.handleArrowKeys) {
+        this$1.__setArrowKeys(true);
+      }
     });
   },
   beforeDestroy: function beforeDestroy () {
     this.__cleanup();
+    if (this.handleArrowKeys) {
+      this.__setArrowKeys(false);
+    }
   }
 };
 
@@ -8578,7 +8608,7 @@ var QGallery = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
   }
 };
 
-var QGalleryCarousel = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-carousel',{ref:"slider",staticClass:"text-white bg-black q-gallery-carousel",attrs:{"dots":_vm.dots,"arrows":_vm.arrows,"fullscreen":_vm.fullscreen,"infinite":_vm.infinite,"actions":"","animation":_vm.animation,"autoplay":_vm.autoplay},on:{"slide":_vm.__updateCurrentSlide}},[_vm._l((_vm.src),function(img){return _c('div',{key:img,staticClass:"no-padding row flex-center",slot:"slide"},[_c('div',{staticClass:"full-width"},[_c('img',{attrs:{"src":img}})])])}),_c('div',{staticClass:"q-gallery-carousel-overlay",class:{active: _vm.quickView},on:{"click":function($event){_vm.toggleQuickView();}}}),_c('q-icon',{attrs:{"name":"view_carousel"},on:{"click":function($event){_vm.toggleQuickView();}},slot:"action"}),_c('div',{staticClass:"q-gallery-carousel-quickview",class:{active: _vm.quickView, row: _vm.horizontalQuickView, horizontal: _vm.horizontalQuickView},on:{"!touchstart":function($event){$event.stopPropagation();},"!touchmove":function($event){$event.stopPropagation();},"!touchend":function($event){$event.stopPropagation();},"!mousedown":function($event){$event.stopPropagation();},"!mousemove":function($event){$event.stopPropagation();},"!mouseend":function($event){$event.stopPropagation();}}},_vm._l((_vm.src),function(img,index){return _c('div',{key:img},[_c('img',{class:{active: _vm.currentSlide === index},attrs:{"src":img},on:{"click":function($event){_vm.__selectImage(index);}}})])}))],2)},staticRenderFns: [],
+var QGalleryCarousel = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-carousel',{ref:"slider",staticClass:"text-white bg-black q-gallery-carousel",attrs:{"dots":_vm.dots,"arrows":_vm.arrows,"fullscreen":_vm.fullscreen,"infinite":_vm.infinite,"actions":"","animation":_vm.animation,"autoplay":_vm.autoplay,"handle-arrow-keys":_vm.handleArrowKeys},on:{"slide":_vm.__updateCurrentSlide}},[_vm._l((_vm.src),function(img){return _c('div',{key:img,staticClass:"no-padding row flex-center",slot:"slide"},[_c('div',{staticClass:"full-width"},[_c('img',{attrs:{"src":img}})])])}),_c('div',{staticClass:"q-gallery-carousel-overlay",class:{active: _vm.quickView},on:{"click":function($event){_vm.toggleQuickView();}}}),_c('q-icon',{attrs:{"name":"view_carousel"},on:{"click":function($event){_vm.toggleQuickView();}},slot:"action"}),_c('div',{staticClass:"q-gallery-carousel-quickview",class:{active: _vm.quickView, row: _vm.horizontalQuickView, horizontal: _vm.horizontalQuickView},on:{"!touchstart":function($event){$event.stopPropagation();},"!touchmove":function($event){$event.stopPropagation();},"!touchend":function($event){$event.stopPropagation();},"!mousedown":function($event){$event.stopPropagation();},"!mousemove":function($event){$event.stopPropagation();},"!mouseend":function($event){$event.stopPropagation();}}},_vm._l((_vm.src),function(img,index){return _c('div',{key:img},[_c('img',{class:{active: _vm.currentSlide === index},attrs:{"src":img},on:{"click":function($event){_vm.__selectImage(index);}}})])}))],2)},staticRenderFns: [],
   name: 'q-gallery-carousel',
   components: {
     QCarousel: QCarousel,
