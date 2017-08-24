@@ -11750,7 +11750,13 @@ function create (opts) {
           on: on,
           props: state
         },
-        opts.html
+        [
+          h('span', {
+            domProps: {
+              innerHTML: opts.html
+            }
+          })
+        ]
       )
     }
   });
