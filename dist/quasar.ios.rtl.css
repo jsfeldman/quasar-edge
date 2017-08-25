@@ -6710,6 +6710,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-smoothing: antialiased;
+  background: #fff;
+  color: #0c0c0c;
 }
 a {
   color: #2e9dfd;
