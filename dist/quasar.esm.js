@@ -2967,17 +2967,14 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
   }
 };
 
-var QBtn = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{directives:[{name:"ripple",rawName:"v-ripple.mat",value:(!_vm.isDisabled),expression:"!isDisabled",modifiers:{"mat":true}}],staticClass:"q-btn row inline flex-center q-focusable q-hoverable relative-position",class:_vm.classes,on:{"click":_vm.click}},[_c('div',{staticClass:"desktop-only q-focus-helper"}),(_vm.loading && _vm.hasPercentage)?_c('div',{staticClass:"q-btn-progress absolute-full",class:{'q-btn-dark-progress': _vm.darkPercentage},style:({width: _vm.width})}):_vm._e(),_c('span',{staticClass:"q-btn-inner row col flex-center"},[(_vm.loading)?_vm._t("loading",[_c('q-spinner')]):[(_vm.icon)?_c('q-icon',{class:{'on-left': !_vm.round},attrs:{"name":_vm.icon}}):_vm._e(),_vm._t("default"),(!_vm.round && _vm.iconRight)?_c('q-icon',{staticClass:"on-right",attrs:{"name":_vm.iconRight}}):_vm._e()]],2)])},staticRenderFns: [],
-  name: 'q-btn',
+var BtnMixin = {
   components: {
-    QSpinner: QSpinner,
     QIcon: QIcon
   },
   directives: {
     Ripple: Ripple
   },
   props: {
-    value: Boolean,
     disable: Boolean,
     noCaps: {
       type: Boolean,
@@ -2993,8 +2990,64 @@ var QBtn = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm
     small: Boolean,
     big: Boolean,
     color: String,
-    glossy: Boolean,
+    glossy: Boolean
+  },
+  computed: {
+    size: function size () {
+      return ("q-btn-" + (this.small ? 'small' : (this.big ? 'big' : 'standard')))
+    },
+    shape: function shape () {
+      return ("q-btn-" + (this.round ? 'round' : 'rectangle'))
+    },
+    isDisabled: function isDisabled () {
+      return this.disable || this.loading
+    },
+    classes: function classes () {
+      var
+        cls = [this.shape, this.size],
+        color = this.toggled ? this.toggleColor : this.color;
 
+      if (this.toggled) {
+        cls.push('q-btn-toggle-active');
+      }
+      if (this.flat) {
+        cls.push('q-btn-flat');
+      }
+      else if (this.outline) {
+        cls.push('q-btn-outline');
+      }
+      else if (this.push) {
+        cls.push('q-btn-push');
+      }
+
+      this.isDisabled && cls.push('disabled');
+      this.noCaps && cls.push('q-btn-no-uppercase');
+      this.rounded && cls.push('q-btn-rounded');
+      this.glossy && cls.push('glossy');
+
+      if (color) {
+        if (this.flat || this.outline) {
+          cls.push(("text-" + color));
+        }
+        else {
+          cls.push(("bg-" + color));
+          cls.push("text-white");
+        }
+      }
+
+      return cls
+    }
+  }
+};
+
+var QBtn = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{directives:[{name:"ripple",rawName:"v-ripple.mat",value:(!_vm.isDisabled),expression:"!isDisabled",modifiers:{"mat":true}}],staticClass:"q-btn row inline flex-center q-focusable q-hoverable relative-position",class:_vm.classes,on:{"click":_vm.click}},[_c('div',{staticClass:"desktop-only q-focus-helper"}),(_vm.loading && _vm.hasPercentage)?_c('div',{staticClass:"q-btn-progress absolute-full",class:{'q-btn-dark-progress': _vm.darkPercentage},style:({width: _vm.width})}):_vm._e(),_c('span',{staticClass:"q-btn-inner row col flex-center"},[(_vm.loading)?_vm._t("loading",[_c('q-spinner')]):[(_vm.icon)?_c('q-icon',{class:{'on-left': !_vm.round},attrs:{"name":_vm.icon}}):_vm._e(),_vm._t("default"),(!_vm.round && _vm.iconRight)?_c('q-icon',{staticClass:"on-right",attrs:{"name":_vm.iconRight}}):_vm._e()]],2)])},staticRenderFns: [],
+  name: 'q-btn',
+  mixins: [BtnMixin],
+  components: {
+    QSpinner: QSpinner
+  },
+  props: {
+    value: Boolean,
     loader: Boolean,
     percentage: Number,
     darkPercentage: Boolean
@@ -3012,50 +3065,11 @@ var QBtn = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm
     }
   },
   computed: {
-    size: function size () {
-      return ("q-btn-" + (this.small ? 'small' : (this.big ? 'big' : 'standard')))
-    },
-    shape: function shape () {
-      return ("q-btn-" + (this.round ? 'round' : 'rectangle'))
-    },
     hasPercentage: function hasPercentage () {
       return this.percentage !== void 0
     },
     width: function width () {
       return ((between(this.percentage, 0, 100)) + "%")
-    },
-    isDisabled: function isDisabled () {
-      return this.disable || this.loading
-    },
-    classes: function classes () {
-      var cls = [this.shape, this.size];
-
-      if (this.flat) {
-        cls.push('q-btn-flat');
-      }
-      else if (this.outline) {
-        cls.push('q-btn-outline');
-      }
-      else if (this.push) {
-        cls.push('q-btn-push');
-      }
-
-      this.isDisabled && cls.push('disabled');
-      this.noCaps && cls.push('q-btn-no-uppercase');
-      this.rounded && cls.push('q-btn-rounded');
-      this.glossy && cls.push('glossy');
-
-      if (this.color) {
-        if (this.flat || this.outline) {
-          cls.push(("text-" + (this.color)));
-        }
-        else {
-          cls.push(("bg-" + (this.color)));
-          cls.push("text-white");
-        }
-      }
-
-      return cls
     }
   },
   methods: {
@@ -3076,6 +3090,60 @@ var QBtn = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm
         this$1.$emit('input', false);
       });
     }
+  }
+};
+
+var QBtnToggle = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{directives:[{name:"ripple",rawName:"v-ripple.mat",value:(!_vm.isDisabled),expression:"!isDisabled",modifiers:{"mat":true}}],staticClass:"q-btn q-btn-toggle row inline flex-center q-focusable q-hoverable relative-position",class:_vm.classes,on:{"click":_vm.click}},[_c('div',{staticClass:"desktop-only q-focus-helper"}),_c('span',{staticClass:"q-btn-inner row col flex-center"},[(_vm.icon)?_c('q-icon',{class:{'on-left': !_vm.round},attrs:{"name":_vm.icon}}):_vm._e(),_vm._t("default"),(!_vm.round && _vm.iconRight)?_c('q-icon',{staticClass:"on-right",attrs:{"name":_vm.iconRight}}):_vm._e()],2)])},staticRenderFns: [],
+  name: 'q-btn-toggle',
+  mixins: [BtnMixin],
+  model: {
+    prop: 'toggled',
+    event: 'change'
+  },
+  props: {
+    toggled: {
+      type: Boolean,
+      required: true
+    },
+    toggleColor: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    click: function click (e) {
+      this.$el.blur();
+
+      if (this.isDisabled) {
+        return
+      }
+
+      var state = !this.toggled;
+      this.$emit('change', state);
+      this.$emit('click', e, state);
+    }
+  }
+};
+
+var QBtnGroup = {
+  name: 'q-btn-group',
+  functional: true,
+  props: {
+    outline: Boolean,
+    flat: Boolean,
+    rounded: Boolean,
+    push: Boolean
+  },
+  render: function render (h, ctx) {
+    var
+      data = ctx.data,
+      prop = ctx.props,
+      cls = data.staticClass,
+      moreCls = ['outline', 'flat', 'rounded', 'push'].filter(function (t) { return prop[t]; }).map(function (t) { return ("q-btn-group-" + t); }).join(' ');
+
+    data.staticClass = "q-btn-group row no-wrap inline" + (cls ? (" " + cls) : '') + (moreCls ? (" " + moreCls) : '');
+
+    return h('div', data, ctx.children)
   }
 };
 
@@ -12601,4 +12669,4 @@ var index_esm = {
   theme: theme
 };
 
-export { QAjaxBar, QAlert, QAutocomplete, QBtn, QCard, QCardTitle, QCardMain, QCardActions, QCardMedia, QCardSeparator, QCarousel, QChatMessage, QCheckbox, QChip, QChipsInput, QCollapsible, QContextMenu, QDataTable, QDatetime, QDatetimeRange, QInlineDatetime, QFab, QFabAction, QField, QFieldReset, QGallery, QGalleryCarousel, QIcon, QInfiniteScroll, QInnerLoading, QInput, QInputFrame, QKnob, QLayout, QFixedPosition, QSideLink, QItem, QItemSeparator, QItemMain, QItemSide, QItemTile, QItemWrapper, QList, QListHeader, QModal, QModalLayout, QResizeObservable, QScrollObservable, QWindowResizeObservable, QOptionGroup, QPagination, QParallax, QPopover, QProgress, QPullToRefresh, QRadio, QRange, QRating, QScrollArea, QSearch, QSelect, QDialogSelect, QSlideTransition, QSlider, QSpinner, audio as QSpinnerAudio, ball as QSpinnerBall, bars as QSpinnerBars, circles as QSpinnerCircles, comment as QSpinnerComment, cube as QSpinnerCube, dots as QSpinnerDots, facebook as QSpinnerFacebook, gears as QSpinnerGears, grid as QSpinnerGrid, hearts as QSpinnerHearts, hourglass as QSpinnerHourglass, infinity as QSpinnerInfinity, QSpinnerIos, QSpinnerMat, oval as QSpinnerOval, pie as QSpinnerPie, puff as QSpinnerPuff, radio as QSpinnerRadio, rings as QSpinnerRings, tail as QSpinnerTail, QStep, QStepper, QStepperNavigation, QRouteTab, QTab, QTabPane, QTabs, QToggle, QToolbar, QToolbarTitle, QTooltip, QTransition, QTree, QUploader, QVideo, backToTop as BackToTop, goBack as GoBack, move as Move, Ripple, scrollFire as ScrollFire, scroll$1 as Scroll, touchHold as TouchHold, TouchPan, TouchSwipe, addressbarColor as AddressbarColor, Alert, appFullscreen as AppFullscreen, appVisibility$1 as AppVisibility, cookies as Cookies, Events, Platform, LocalStorage, SessionStorage, index as ActionSheet, Dialog, index$1 as Loading, index$2 as Toast, animate, clone, colors, date, debounce, frameDebounce, dom, event, extend, filter, format, noop, openUrl as openURL, scroll, throttle, uid };export default index_esm;
+export { QAjaxBar, QAlert, QAutocomplete, QBtn, QBtnGroup, QBtnToggle, QCard, QCardTitle, QCardMain, QCardActions, QCardMedia, QCardSeparator, QCarousel, QChatMessage, QCheckbox, QChip, QChipsInput, QCollapsible, QContextMenu, QDataTable, QDatetime, QDatetimeRange, QInlineDatetime, QFab, QFabAction, QField, QFieldReset, QGallery, QGalleryCarousel, QIcon, QInfiniteScroll, QInnerLoading, QInput, QInputFrame, QKnob, QLayout, QFixedPosition, QSideLink, QItem, QItemSeparator, QItemMain, QItemSide, QItemTile, QItemWrapper, QList, QListHeader, QModal, QModalLayout, QResizeObservable, QScrollObservable, QWindowResizeObservable, QOptionGroup, QPagination, QParallax, QPopover, QProgress, QPullToRefresh, QRadio, QRange, QRating, QScrollArea, QSearch, QSelect, QDialogSelect, QSlideTransition, QSlider, QSpinner, audio as QSpinnerAudio, ball as QSpinnerBall, bars as QSpinnerBars, circles as QSpinnerCircles, comment as QSpinnerComment, cube as QSpinnerCube, dots as QSpinnerDots, facebook as QSpinnerFacebook, gears as QSpinnerGears, grid as QSpinnerGrid, hearts as QSpinnerHearts, hourglass as QSpinnerHourglass, infinity as QSpinnerInfinity, QSpinnerIos, QSpinnerMat, oval as QSpinnerOval, pie as QSpinnerPie, puff as QSpinnerPuff, radio as QSpinnerRadio, rings as QSpinnerRings, tail as QSpinnerTail, QStep, QStepper, QStepperNavigation, QRouteTab, QTab, QTabPane, QTabs, QToggle, QToolbar, QToolbarTitle, QTooltip, QTransition, QTree, QUploader, QVideo, backToTop as BackToTop, goBack as GoBack, move as Move, Ripple, scrollFire as ScrollFire, scroll$1 as Scroll, touchHold as TouchHold, TouchPan, TouchSwipe, addressbarColor as AddressbarColor, Alert, appFullscreen as AppFullscreen, appVisibility$1 as AppVisibility, cookies as Cookies, Events, Platform, LocalStorage, SessionStorage, index as ActionSheet, Dialog, index$1 as Loading, index$2 as Toast, animate, clone, colors, date, debounce, frameDebounce, dom, event, extend, filter, format, noop, openUrl as openURL, scroll, throttle, uid };export default index_esm;
