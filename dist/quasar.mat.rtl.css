@@ -414,6 +414,12 @@ body.desktop ul.breadcrumb a:hover:after {
   width: 34px;
   font-size: 34px;
 }
+.q-btn-dropdown-arrow {
+  padding: 0 4px;
+}
+.q-btn-dropdown-split .q-btn-dropdown-arrow {
+  border-right: 1px solid rgba(255,255,255,0.25);
+}
 .q-btn-group {
   border-radius: 2px;
   box-shadow: 0 1px 5px rgba(0,0,0,0.2), 0 2px 2px rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12);
@@ -447,16 +453,6 @@ body.desktop ul.breadcrumb a:hover:after {
 }
 .q-btn-group-outline .q-btn:not(:last-child) {
   border-left: 0;
-}
-.qq-btn-toggle-active:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: #fff;
-  opacity: 0.4;
 }
 .q-card {
   border-radius: 2px;
@@ -1392,19 +1388,6 @@ body.desktop .q-datetime-clock-position:not(.active):hover {
   border-radius: 50%;
   background: #f44336;
   opacity: 0.8;
-}
-.q-dropdown-arrow {
-  padding: 0;
-}
-.q-dropdown-current {
-  padding-right: 8px;
-  padding-left: 0;
-}
-.q-dropdown {
-  padding: 0;
-}
-.q-dropdown .q-btn-inner {
-  padding: 0 8px;
 }
 .q-editor {
   border: 1px solid #bbb;
@@ -7042,7 +7025,7 @@ img.avatar {
   touch-action: pan-y;
 }
 body {
-  min-width: 200px;
+  min-width: 100px;
   font-family: 'Roboto', '-apple-system', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -7051,6 +7034,7 @@ body {
   font-smoothing: antialiased;
   background: #fff;
   color: #0c0c0c;
+  min-height: 100vh;
 }
 a {
   color: #2e9dfd;
