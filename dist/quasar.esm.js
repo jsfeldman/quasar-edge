@@ -3291,7 +3291,7 @@ var QBtnDropdown = {
   }
 };
 
-var QBtnToggleGroup = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-btn-group',{staticClass:"q-btn-toggle-group",attrs:{"outline":_vm.outline,"flat":_vm.flat,"rounded":_vm.rounded,"push":_vm.push}},_vm._l((_vm.options),function(opt,i){return _c('q-btn-toggle',{key:("" + (opt.label) + (opt.icon) + (opt.iconRight)),attrs:{"toggled":_vm.val[i],"label":opt.label,"color":_vm.color,"toggle-color":_vm.toggleColor,"icon":opt.icon,"icon-right":opt.iconRight,"no-caps":_vm.noCaps,"outline":_vm.outline,"flat":_vm.flat,"rounded":_vm.rounded,"push":_vm.push,"glossy":_vm.glossy,"small":_vm.small,"big":_vm.big},on:{"change":function($event){_vm.set(opt.value, opt);}}})}))},staticRenderFns: [],
+var QBtnToggleGroup = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-btn-group',{staticClass:"q-btn-toggle-group",attrs:{"outline":_vm.outline,"flat":_vm.flat,"rounded":_vm.rounded,"push":_vm.push}},_vm._l((_vm.options),function(opt,i){return _c('q-btn-toggle',{key:("" + (opt.label) + (opt.icon) + (opt.iconRight)),attrs:{"toggled":_vm.val[i],"label":opt.label,"color":opt.color || _vm.color,"toggle-color":opt.toggleColor || _vm.toggleColor,"icon":opt.icon,"icon-right":opt.iconRight,"no-caps":_vm.noCaps,"outline":_vm.outline,"flat":_vm.flat,"rounded":_vm.rounded,"push":_vm.push,"glossy":_vm.glossy,"small":_vm.small,"big":_vm.big},on:{"change":function($event){_vm.set(opt.value, opt);}}})}))},staticRenderFns: [],
   name: 'q-btn-toggle-group',
   components: {
     QBtnGroup: QBtnGroup,
