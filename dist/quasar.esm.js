@@ -1,5 +1,5 @@
 /*!
- * Quasar Framework v0.14.4
+ * Quasar Framework v0.14.3
  * (c) 2016-present Razvan Stoenescu
  * Released under the MIT License.
  */
@@ -312,7 +312,7 @@ var theme = Object.freeze({
 	get current () { return current; }
 });
 
-var version = "0.14.4";
+var version = "0.14.3";
 
 var Vue;
 
@@ -4368,8 +4368,8 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
       type: String,
       default: 'flex-center'
     },
-    contentClasses: [Object, String],
-    contentCss: [Object, String],
+    contentClasses: [Object, Array, String],
+    contentCss: [Object, Array, String],
     noBackdropDismiss: {
       type: Boolean,
       default: false
@@ -4409,13 +4409,19 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
     },
     modalCss: function modalCss () {
       if (this.position) {
-        return extend(
+        var css = Array.isArray(this.contentCss)
+          ? this.contentCss
+          : [this.contentCss];
+
+        css.unshift(extend(
           {},
           positionCSS[this.$q.theme],
-          additionalCSS(this.$q.theme, this.position),
-          this.contentCss
-        )
+          additionalCSS(this.$q.theme, this.position)
+        ));
+
+        return css
       }
+
       return this.contentCss
     }
   },
