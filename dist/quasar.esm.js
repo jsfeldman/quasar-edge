@@ -4433,8 +4433,12 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
         return
       }
 
-      document.body.appendChild(this.$el);
-      document.body.classList.add('with-modal');
+      var body = document.body;
+
+      body.appendChild(this.$el);
+      body.classList.add('with-modal');
+      this.bodyPadding = window.getComputedStyle(body).paddingRight;
+      body.style.paddingRight = (getScrollbarWidth()) + "px";
       EscapeKey.register(function () {
         if (this$1.noEscDismiss) {
           return
@@ -4463,7 +4467,8 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
 
         setTimeout(function () {
           if (!openedModalNumber) {
-            document.body.classList.remove('with-modal');
+            body.classList.remove('with-modal');
+            body.style.paddingRight = this$1.bodyPadding;
           }
           if (typeof this$1.__onClose === 'function') {
             this$1.__onClose();
