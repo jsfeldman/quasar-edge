@@ -10111,6 +10111,7 @@ var QStep = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_v
     error: Boolean,
     activeIcon: String,
     errorIcon: String,
+    doneIcon: String,
     disable: Boolean
   },
   inject: ['__stepper'],
