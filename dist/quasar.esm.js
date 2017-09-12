@@ -1,5 +1,5 @@
 /*!
- * Quasar Framework v0.14.3
+ * Quasar Framework v0.14.4
  * (c) 2016-present Razvan Stoenescu
  * Released under the MIT License.
  */
@@ -312,7 +312,7 @@ var theme = Object.freeze({
 	get current () { return current; }
 });
 
-var version = "0.14.3";
+var version = "0.14.4";
 
 var Vue;
 
@@ -2148,8 +2148,43 @@ var EscapeKey = {
   }
 };
 
+var ModelToggleMixin = {
+  props: {
+    value: Boolean
+  },
+  watch: {
+    value: function value (v) {
+      if (v) {
+        this.open();
+      }
+      else {
+        this.close();
+      }
+    }
+  },
+  mounted: function mounted () {
+    var this$1 = this;
+
+    this.$nextTick(function () {
+      setTimeout(function () {
+        if (this$1.value) {
+          this$1.open();
+        }
+      }, 100);
+    });
+  },
+  methods: {
+    __updateModel: function __updateModel (val) {
+      if (this.value !== val) {
+        this.$emit('input', val);
+      }
+    }
+  }
+};
+
 var QPopover = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"q-popover animate-scale",style:(_vm.transformCSS),on:{"click":function($event){$event.stopPropagation();}}},[_vm._t("default")],2)},staticRenderFns: [],
   name: 'q-popover',
+  mixins: [ModelToggleMixin],
   props: {
     anchor: {
       type: String,
@@ -2257,6 +2292,7 @@ var QPopover = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
         this$1.timer = null;
         document.body.addEventListener('click', this$1.close, true);
         document.body.addEventListener('touchstart', this$1.close, true);
+        this$1.__updateModel(true);
         this$1.$emit('open');
       }, 1);
     },
@@ -2283,6 +2319,7 @@ var QPopover = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
         this$1.opened = false;
         this$1.progress = false;
         document.body.removeChild(this$1.$el);
+        this$1.__updateModel(false);
         this$1.$emit('close');
         if (typeof fn === 'function') {
           fn();
@@ -4350,6 +4387,7 @@ var openedModalNumber = 0;
 
 var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-transition',{attrs:{"name":_vm.modalTransition,"enter":_vm.enterClass,"leave":_vm.leaveClass}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.active),expression:"active"}],staticClass:"modal fullscreen row",class:_vm.modalClasses,on:{"mousedown":function($event){_vm.__dismiss();},"touchstart":function($event){_vm.__dismiss();}}},[_c('div',{ref:"content",staticClass:"modal-content scroll",class:_vm.contentClasses,style:(_vm.modalCss),on:{"mousedown":function($event){$event.stopPropagation();},"touchstart":function($event){$event.stopPropagation();}}},[_vm._t("default")],2)])])},staticRenderFns: [],
   name: 'q-modal',
+  mixins: [ModelToggleMixin],
   components: {
     QTransition: QTransition
   },
@@ -4473,6 +4511,7 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
           if (typeof this$1.__onClose === 'function') {
             this$1.__onClose();
           }
+          this$1.__updateModel(false);
           this$1.$emit('close');
         }, duration);
       };
@@ -4498,6 +4537,7 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
         if (typeof onShow === 'function') {
           onShow();
         }
+        this$1.__updateModel(true);
         this$1.$emit('open');
       }, duration);
     },
