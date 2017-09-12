@@ -6811,6 +6811,7 @@ var SortIcon = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
 
 var QTooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"q-tooltip animate-scale",style:(_vm.transformCSS)},[_vm._t("default")],2)},staticRenderFns: [],
   name: 'q-tooltip',
+  mixins: [ModelToggleMixin],
   props: {
     anchor: {
       type: String,
@@ -6873,6 +6874,8 @@ var QTooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
       if (Platform.is.mobile) {
         document.body.addEventListener('click', this.close, true);
       }
+      this.__updateModel(true);
+      this.$emit('open');
       this.__updatePosition();
     },
     close: function close () {
@@ -6885,6 +6888,8 @@ var QTooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
         if (Platform.is.mobile) {
           document.body.removeEventListener('click', this.close, true);
         }
+        this.__updateModel(false);
+        this.$emit('close');
       }
     },
     __updatePosition: function __updatePosition () {
