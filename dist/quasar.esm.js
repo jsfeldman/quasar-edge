@@ -1142,31 +1142,17 @@ function showRipple (evt, el, stopPropagation) {
 
   animNode.classList.add('q-ripple-animation-enter', 'q-ripple-animation-visible');
   css(animNode, cssTransform(("translate(-50%, -50%) translate(" + x + "px, " + y + "px) scale(.001)")));
-  animNode.dataset.activated = Date.now();
 
   setTimeout(function () {
     animNode.classList.remove('q-ripple-animation-enter');
     css(animNode, cssTransform(("translate(-50%, -50%) translate(" + x + "px, " + y + "px)")));
-  }, 0);
-}
-
-function hideRipple (el) {
-  var ripples = el.getElementsByClassName('q-ripple-animation');
-
-  if (!ripples.length) {
-    return
-  }
-
-  var animNode = ripples[ripples.length - 1];
-  var diff = Date.now() - Number(animNode.dataset.activated);
-
-  setTimeout(function () {
-    animNode.classList.remove('q-ripple-animation-visible');
-
     setTimeout(function () {
-      animNode.parentNode.remove();
-    }, 300);
-  }, Math.max(0, 400 - diff));
+      animNode.classList.remove('q-ripple-animation-visible');
+      setTimeout(function () {
+        animNode.parentNode.remove();
+      }, 300);
+    }, 400);
+  }, 25);
 }
 
 function shouldAbort (ref) {
@@ -1189,37 +1175,17 @@ var Ripple = {
       return
     }
 
-    function show (evt) {
-      if (ctx.enabled) {
-        showRipple(evt, el, modifiers.stop);
+    var ctx = {
+      enabled: value !== false,
+      click: function click (evt) {
+        if (ctx.enabled) {
+          showRipple(evt, el, modifiers.stop);
+        }
       }
-    }
-    function hide () {
-      if (ctx.enabled) {
-        hideRipple(el);
-      }
-    }
+    };
 
-    var
-      ctx = {enabled: value !== false},
-      h = {};
-
-    if (Platform.is.desktop) {
-      h.mousedown = show;
-      h.mouseup = hide;
-      h.mouseleave = hide;
-    }
-    if (Platform.has.touch) {
-      h.touchstart = show;
-      h.touchend = hide;
-      h.touchcancel = hide;
-    }
-
-    ctx.h = h;
     el.__qripple = ctx;
-    Object.keys(h).forEach(function (evt) {
-      el.addEventListener(evt, h[evt], false);
-    });
+    el.addEventListener('click', ctx.click, false);
   },
   update: function update (el, ref) {
     var value = ref.value;
@@ -1237,9 +1203,7 @@ var Ripple = {
     }
 
     var ctx = el.__qripple;
-    Object.keys(ctx.h).forEach(function (evt) {
-      el.removeEventListener(evt, ctx.h[evt], false);
-    });
+    el.removeEventListener('click', ctx.click, false);
     delete el.__qripple;
   }
 };
