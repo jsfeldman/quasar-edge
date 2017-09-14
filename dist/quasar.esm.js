@@ -6826,7 +6826,7 @@ var QTooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
       }
     },
     open: function open () {
-      if (this.disable) {
+      if (this.disable || this.opened) {
         return
       }
       clearTimeout(this.timer);
