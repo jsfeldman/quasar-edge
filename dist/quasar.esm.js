@@ -8594,9 +8594,9 @@ var QFab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm
     close: function close (fn) {
       this.opened = false;
       this.__updateModel(false);
+      this.$emit('close');
 
       if (typeof fn === 'function') {
-        this.$emit('close');
         fn();
       }
     },
