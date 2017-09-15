@@ -3425,11 +3425,91 @@ var TouchPan = {
   }
 };
 
-var ids = {};
-
-function defaultEasing (progress) {
-  return progress
+function isDate (v) {
+  return Object.prototype.toString.call(v) === '[object Date]'
 }
+
+
+
+function isNumber (v) {
+  return typeof v === 'number' && isFinite(v)
+}
+
+var linear = function (t) { return t; };
+
+var easeInQuad = function (t) { return t * t; };
+var easeOutQuad = function (t) { return t * (2 - t); };
+var easeInOutQuad = function (t) { return t < 0.5
+  ? 2 * t * t
+  : -1 + (4 - 2 * t) * t; };
+
+var easeInCubic = function (t) { return Math.pow( t, 3 ); };
+var easeOutCubic = function (t) { return 1 + Math.pow( (t - 1), 3 ); };
+var easeInOutCubic = function (t) { return t < 0.5
+  ? 4 * Math.pow( t, 3 )
+  : 1 + (t - 1) * Math.pow( (2 * t - 2), 2 ); };
+
+var easeInQuart = function (t) { return Math.pow( t, 4 ); };
+var easeOutQuart = function (t) { return 1 - Math.pow( (t - 1), 4 ); };
+var easeInOutQuart = function (t) { return t < 0.5
+  ? 8 * Math.pow( t, 4 )
+  : 1 - 8 * Math.pow( (t - 1), 4 ); };
+
+var easeInQuint = function (t) { return Math.pow( t, 5 ); };
+var easeOutQuint = function (t) { return 1 + Math.pow( (t - 1), 5 ); };
+var easeInOutQuint = function (t) { return t < 0.5
+  ? 16 * Math.pow( t, 5 )
+  : 1 + 16 * Math.pow( (t - 1), 5 ); };
+
+var easeInCirc = function (t) { return -1 * Math.sqrt(1 - Math.pow( t, 2 )) + 1; };
+var easeOutCirc = function (t) { return Math.sqrt(-1 * (t - 2) * t); };
+var easeInOutCirc = function (t) { return t < 0.5
+  ? 0.5 * (1 - Math.sqrt(1 - 4 * t * t))
+  : 0.5 * (1 + Math.sqrt(-3 + 8 * t - 4 * t * t)); };
+
+var dampener = function (t) { return Math.pow( Math.E, (-6.3 * t) ); };
+var bounce = function (t) { return Math.cos(5 * t); };
+var overshoot = function (t) { return -1 * dampener(t) * bounce(t) + 1; };
+
+/* -- Material Design curves -- */
+
+/**
+ * Faster ease in, slower ease out
+ */
+var standard = function (t) { return t < 0.4031
+  ? 12 * Math.pow( t, 4 )
+  : 1 / 1290 * (11 * Math.sqrt(-40000 * t * t + 80000 * t - 23359) - 129); };
+
+var decelerate = easeOutCubic;
+var accelerate = easeInCubic;
+var sharp = easeInOutQuad;
+
+
+var easing = Object.freeze({
+	linear: linear,
+	easeInQuad: easeInQuad,
+	easeOutQuad: easeOutQuad,
+	easeInOutQuad: easeInOutQuad,
+	easeInCubic: easeInCubic,
+	easeOutCubic: easeOutCubic,
+	easeInOutCubic: easeInOutCubic,
+	easeInQuart: easeInQuart,
+	easeOutQuart: easeOutQuart,
+	easeInOutQuart: easeInOutQuart,
+	easeInQuint: easeInQuint,
+	easeOutQuint: easeOutQuint,
+	easeInOutQuint: easeInOutQuint,
+	easeInCirc: easeInCirc,
+	easeOutCirc: easeOutCirc,
+	easeInOutCirc: easeInOutCirc,
+	overshoot: overshoot,
+	standard: standard,
+	decelerate: decelerate,
+	accelerate: accelerate,
+	sharp: sharp
+});
+
+var ids = {};
 
 function start$1 (ref) {
   var name = ref.name;
@@ -3451,7 +3531,7 @@ function start$1 (ref) {
     id = uid();
   }
 
-  var delta = easing || defaultEasing;
+  var delta = easing || linear;
   var handler = function () {
     var progress = (performance.now() - start) / duration;
     if (progress > 1) {
@@ -3508,9 +3588,11 @@ var CarouselMixin = {
     infinite: Boolean,
     actions: Boolean,
     animation: {
-      type: Boolean,
+      type: [Number, Boolean],
       default: true
     },
+    easing: Function,
+    swipeEasing: Function,
     handleArrowKeys: Boolean,
     autoplay: [Number, Boolean]
   }
@@ -3603,7 +3685,8 @@ var QCarousel = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
             : this.positionSlide,
           function () {
             delete this$1.initialPosition;
-          }
+          },
+          true
         );
       }
     },
@@ -3620,8 +3703,9 @@ var QCarousel = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
         this.goToSlide(this.slide + 1, done);
       }
     },
-    goToSlide: function goToSlide (slide, done) {
+    goToSlide: function goToSlide (slide, done, fromSwipe) {
       var this$1 = this;
+      if ( fromSwipe === void 0 ) fromSwipe = false;
 
       var direction = '';
       this.__cleanup();
@@ -3666,6 +3750,10 @@ var QCarousel = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
       this.animUid = start$1({
         from: this.position,
         to: pos,
+        duration: isNumber(this.animation) ? this.animation : 300,
+        easing: fromSwipe
+          ? this.swipeEasing || decelerate
+          : this.easing || standard,
         apply: function (pos) {
           this$1.position = pos;
         },
@@ -3733,7 +3821,7 @@ var QCarousel = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
           clearTimeout(this$1.timer);
           this$1.timer = setTimeout(
             this$1.next,
-            typeof this$1.autoplay === 'number' ? this$1.autoplay : 5000
+            isNumber(this$1.autoplay) ? this$1.autoplay : 5000
           );
         }
       });
@@ -7143,10 +7231,6 @@ var QDataTable = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
     }
   }
 };
-
-function isDate (v) {
-  return Object.prototype.toString.call(v) === '[object Date]'
-}
 
 /* eslint no-fallthrough: 0 */
 
@@ -12666,4 +12750,4 @@ var index_esm = {
   theme: theme
 };
 
-export { QAjaxBar, QAlert, QAutocomplete, QBtn, QCard, QCardTitle, QCardMain, QCardActions, QCardMedia, QCardSeparator, QCarousel, QChatMessage, QCheckbox, QChip, QChipsInput, QCollapsible, QContextMenu, QDataTable, QDatetime, QDatetimeRange, QInlineDatetime, QFab, QFabAction, QField, QFieldReset, QGallery, QGalleryCarousel, QIcon, QInfiniteScroll, QInnerLoading, QInput, QInputFrame, QKnob, QLayout, QFixedPosition, QSideLink, QItem, QItemSeparator, QItemMain, QItemSide, QItemTile, QItemWrapper, QList, QListHeader, QModal, QModalLayout, QResizeObservable, QScrollObservable, QWindowResizeObservable, QOptionGroup, QPagination, QParallax, QPopover, QProgress, QPullToRefresh, QRadio, QRange, QRating, QScrollArea, QSearch, QSelect, QDialogSelect, QSlideTransition, QSlider, QSpinner, audio as QSpinnerAudio, ball as QSpinnerBall, bars as QSpinnerBars, circles as QSpinnerCircles, comment as QSpinnerComment, cube as QSpinnerCube, dots as QSpinnerDots, facebook as QSpinnerFacebook, gears as QSpinnerGears, grid as QSpinnerGrid, hearts as QSpinnerHearts, hourglass as QSpinnerHourglass, infinity as QSpinnerInfinity, QSpinnerIos, QSpinnerMat, oval as QSpinnerOval, pie as QSpinnerPie, puff as QSpinnerPuff, radio as QSpinnerRadio, rings as QSpinnerRings, tail as QSpinnerTail, QStep, QStepper, QStepperNavigation, QRouteTab, QTab, QTabPane, QTabs, QToggle, QToolbar, QToolbarTitle, QTooltip, QTransition, QTree, QUploader, QVideo, backToTop as BackToTop, goBack as GoBack, move as Move, Ripple, scrollFire as ScrollFire, scroll$1 as Scroll, touchHold as TouchHold, TouchPan, TouchSwipe, addressbarColor as AddressbarColor, Alert, appFullscreen as AppFullscreen, appVisibility$1 as AppVisibility, cookies as Cookies, Events, Platform, LocalStorage, SessionStorage, index as ActionSheet, Dialog, index$1 as Loading, index$2 as Toast, animate, clone, colors, date, debounce, frameDebounce, dom, event, extend, filter, format, noop, openUrl as openURL, scroll, throttle, uid };export default index_esm;
+export { QAjaxBar, QAlert, QAutocomplete, QBtn, QCard, QCardTitle, QCardMain, QCardActions, QCardMedia, QCardSeparator, QCarousel, QChatMessage, QCheckbox, QChip, QChipsInput, QCollapsible, QContextMenu, QDataTable, QDatetime, QDatetimeRange, QInlineDatetime, QFab, QFabAction, QField, QFieldReset, QGallery, QGalleryCarousel, QIcon, QInfiniteScroll, QInnerLoading, QInput, QInputFrame, QKnob, QLayout, QFixedPosition, QSideLink, QItem, QItemSeparator, QItemMain, QItemSide, QItemTile, QItemWrapper, QList, QListHeader, QModal, QModalLayout, QResizeObservable, QScrollObservable, QWindowResizeObservable, QOptionGroup, QPagination, QParallax, QPopover, QProgress, QPullToRefresh, QRadio, QRange, QRating, QScrollArea, QSearch, QSelect, QDialogSelect, QSlideTransition, QSlider, QSpinner, audio as QSpinnerAudio, ball as QSpinnerBall, bars as QSpinnerBars, circles as QSpinnerCircles, comment as QSpinnerComment, cube as QSpinnerCube, dots as QSpinnerDots, facebook as QSpinnerFacebook, gears as QSpinnerGears, grid as QSpinnerGrid, hearts as QSpinnerHearts, hourglass as QSpinnerHourglass, infinity as QSpinnerInfinity, QSpinnerIos, QSpinnerMat, oval as QSpinnerOval, pie as QSpinnerPie, puff as QSpinnerPuff, radio as QSpinnerRadio, rings as QSpinnerRings, tail as QSpinnerTail, QStep, QStepper, QStepperNavigation, QRouteTab, QTab, QTabPane, QTabs, QToggle, QToolbar, QToolbarTitle, QTooltip, QTransition, QTree, QUploader, QVideo, backToTop as BackToTop, goBack as GoBack, move as Move, Ripple, scrollFire as ScrollFire, scroll$1 as Scroll, touchHold as TouchHold, TouchPan, TouchSwipe, addressbarColor as AddressbarColor, Alert, appFullscreen as AppFullscreen, appVisibility$1 as AppVisibility, cookies as Cookies, Events, Platform, LocalStorage, SessionStorage, index as ActionSheet, Dialog, index$1 as Loading, index$2 as Toast, animate, clone, colors, date, debounce, frameDebounce, dom, easing, event, extend, filter, format, noop, openUrl as openURL, scroll, throttle, uid };export default index_esm;
