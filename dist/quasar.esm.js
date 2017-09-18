@@ -3987,6 +3987,8 @@ var Mixin = {
       }
     },
     __onChange: function __onChange () {
+      var this$1 = this;
+
       var ref = this.$refs.ripple;
       if (ref) {
         ref.classList.add('active');
@@ -3994,7 +3996,9 @@ var Mixin = {
           ref.classList.remove('active');
         }, 10);
       }
-      this.$emit('change', this.model);
+      this.$nextTick(function () {
+        this$1.$emit('change', this$1.model);
+      });
     }
   }
 };
