@@ -11179,11 +11179,11 @@ var QUploader = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
         xhr = new XMLHttpRequest();
 
       try {
-        form.append('Content-Type', file.type || 'application/octet-stream');
-        form.append(this.name, file);
         this.additionalFields.forEach(function (field) {
           form.append(field.name, field.value);
         });
+        form.append('Content-Type', file.type || 'application/octet-stream');
+        form.append(this.name, file);
       }
       catch (e) {
         return
