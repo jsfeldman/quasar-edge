@@ -2654,6 +2654,7 @@ var QItemWrapper = {
 
     push(child, h, QItemSide, slot.left, replace, {
       icon: cfg.icon,
+      color: cfg.leftColor,
       avatar: cfg.avatar,
       letter: cfg.letter,
       image: cfg.image
@@ -2670,6 +2671,7 @@ var QItemWrapper = {
     push(child, h, QItemSide, slot.right, replace, {
       right: true,
       icon: cfg.rightIcon,
+      color: cfg.rightColor,
       avatar: cfg.rightAvatar,
       letter: cfg.rightLetter,
       image: cfg.rightImage,
