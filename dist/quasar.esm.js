@@ -2616,8 +2616,10 @@ var QItemTile = {
 };
 
 function push (child, h, name, slot, replace, conf) {
+  var defaultProps = { props: { right: conf.right } };
+
   if (slot && replace) {
-    child.push(h(name, slot));
+    child.push(h(name, defaultProps, slot));
     return
   }
   var props, v = false;
@@ -2633,7 +2635,7 @@ function push (child, h, name, slot, replace, conf) {
     }
   }
   if (props || slot) {
-    child.push(h(name, props ? {props: conf} : {}, slot));
+    child.push(h(name, props ? {props: conf} : defaultProps, slot));
   }
 }
 
@@ -2643,9 +2645,7 @@ var QItemWrapper = {
   props: {
     cfg: {
       type: Object,
-      default: function default$1 () {
-        return {}
-      }
+      default: function () { return ({}); }
     },
     slotReplace: Boolean
   },
@@ -8486,7 +8486,7 @@ var contentCSS = {
   }
 };
 
-var QDatetime = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-input-frame',{staticClass:"q-datetime-input",attrs:{"prefix":_vm.prefix,"suffix":_vm.suffix,"stack-label":_vm.stackLabel,"float-label":_vm.floatLabel,"error":_vm.error,"disable":_vm.disable,"inverted":_vm.inverted,"dark":_vm.dark,"before":_vm.before,"after":_vm.after,"color":_vm.color,"focused":_vm.focused,"focusable":"","length":_vm.actualValue.length},nativeOn:{"click":function($event){_vm.open($event);},"focus":function($event){_vm.__onFocus($event);},"blur":function($event){_vm.__onBlur($event);}}},[_c('div',{staticClass:"col row items-center q-input-target",class:_vm.alignClass,domProps:{"innerHTML":_vm._s(_vm.actualValue)}}),(_vm.usingPopover)?_c('q-popover',{ref:"popup",attrs:{"offset":[0, 10],"disable":_vm.disable,"anchor-click":false},on:{"open":_vm.__onFocus,"close":_vm.__onClose}},[_c('q-inline-datetime',{ref:"target",staticClass:"no-border",attrs:{"default-selection":_vm.defaultSelection,"type":_vm.type,"min":_vm.min,"max":_vm.max,"format24h":_vm.format24h,"monday-first":_vm.mondayFirst,"saturday-first":_vm.saturdayFirst,"month-names":_vm.monthNames,"day-names":_vm.dayNames,"color":_vm.color},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v;},expression:"model"}},[_c('div',{staticClass:"row q-datetime-controls modal-buttons-top"},[(!_vm.noClear && _vm.model)?_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.clear();}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.clearLabel)}})]):_vm._e(),_c('div',{staticClass:"col"}),_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.close();}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.cancelLabel)}})]),_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.close(_vm.__update);}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.okLabel)}})])],1)])],1):_c('q-modal',{ref:"popup",staticClass:"with-backdrop",class:_vm.classNames,attrs:{"transition":_vm.transition,"position-classes":_vm.position,"content-css":_vm.css},on:{"open":_vm.__onFocus,"close":_vm.__onClose}},[_c('q-inline-datetime',{ref:"target",staticClass:"no-border",class:{'full-width': _vm.$q.theme === 'ios'},attrs:{"default-selection":_vm.defaultSelection,"type":_vm.type,"min":_vm.min,"max":_vm.max,"format24h":_vm.format24h,"monday-first":_vm.mondayFirst,"saturday-first":_vm.saturdayFirst,"month-names":_vm.monthNames,"day-names":_vm.dayNames,"color":_vm.color},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v;},expression:"model"}},[_c('div',{staticClass:"modal-buttons modal-buttons-top row full-width"},[(!_vm.noClear && _vm.model)?_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.clear();}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.clearLabel)}})]):_vm._e(),_c('div',{staticClass:"col"}),_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.close();}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.cancelLabel)}})]),_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.close(_vm.__update);}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.okLabel)}})])],1)])],1),_c('q-icon',{staticClass:"q-if-control",attrs:{"name":"arrow_drop_down"},slot:"after"})],1)},staticRenderFns: [],
+var QDatetime = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-input-frame',{staticClass:"q-datetime-input",attrs:{"prefix":_vm.prefix,"suffix":_vm.suffix,"stack-label":_vm.stackLabel,"float-label":_vm.floatLabel,"error":_vm.error,"disable":_vm.disable,"inverted":_vm.inverted,"dark":_vm.dark,"before":_vm.before,"after":_vm.after,"color":_vm.color,"focused":_vm.focused,"focusable":"","length":_vm.actualValue.length},nativeOn:{"click":function($event){_vm.open($event);},"focus":function($event){_vm.__onFocus($event);},"blur":function($event){_vm.__onBlur($event);}}},[_c('div',{staticClass:"col row items-center q-input-target",class:_vm.alignClass,domProps:{"innerHTML":_vm._s(_vm.actualValue)}}),(_vm.usingPopover)?_c('q-popover',{ref:"popup",attrs:{"offset":[0, 10],"disable":_vm.disable,"anchor-click":false,"max-height":"100vh"},on:{"open":_vm.__onFocus,"close":_vm.__onClose}},[_c('q-inline-datetime',{ref:"target",staticClass:"no-border",attrs:{"default-selection":_vm.defaultSelection,"type":_vm.type,"min":_vm.min,"max":_vm.max,"format24h":_vm.format24h,"monday-first":_vm.mondayFirst,"saturday-first":_vm.saturdayFirst,"month-names":_vm.monthNames,"day-names":_vm.dayNames,"color":_vm.color},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v;},expression:"model"}},[_c('div',{staticClass:"row q-datetime-controls modal-buttons-top"},[(!_vm.noClear && _vm.model)?_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.clear();}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.clearLabel)}})]):_vm._e(),_c('div',{staticClass:"col"}),_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.close();}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.cancelLabel)}})]),_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.close(_vm.__update);}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.okLabel)}})])],1)])],1):_c('q-modal',{ref:"popup",staticClass:"with-backdrop",class:_vm.classNames,attrs:{"transition":_vm.transition,"position-classes":_vm.position,"content-css":_vm.css},on:{"open":_vm.__onFocus,"close":_vm.__onClose}},[_c('q-inline-datetime',{ref:"target",staticClass:"no-border",class:{'full-width': _vm.$q.theme === 'ios'},attrs:{"default-selection":_vm.defaultSelection,"type":_vm.type,"min":_vm.min,"max":_vm.max,"format24h":_vm.format24h,"monday-first":_vm.mondayFirst,"saturday-first":_vm.saturdayFirst,"month-names":_vm.monthNames,"day-names":_vm.dayNames,"color":_vm.color},model:{value:(_vm.model),callback:function ($$v) {_vm.model=$$v;},expression:"model"}},[_c('div',{staticClass:"modal-buttons modal-buttons-top row full-width"},[(!_vm.noClear && _vm.model)?_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.clear();}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.clearLabel)}})]):_vm._e(),_c('div',{staticClass:"col"}),_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.close();}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.cancelLabel)}})]),_c('q-btn',{attrs:{"color":_vm.color,"flat":""},on:{"click":function($event){_vm.close(_vm.__update);}}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.okLabel)}})])],1)])],1),_c('q-icon',{staticClass:"q-if-control",attrs:{"name":"arrow_drop_down"},slot:"after"})],1)},staticRenderFns: [],
   name: 'q-datetime',
   mixins: [FrameMixin],
   components: {
