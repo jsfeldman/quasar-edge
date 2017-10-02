@@ -4482,7 +4482,8 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
   },
   data: function data () {
     return {
-      active: false
+      active: false,
+      toggleInProgress: false
     }
   },
   computed: {
@@ -4528,10 +4529,11 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
     open: function open (onShow) {
       var this$1 = this;
 
-      if (this.active) {
+      if (this.active || this.toggleInProgress) {
         return
       }
 
+      this.toggleInProgress = true;
       var body = document.body;
 
       body.appendChild(this.$el);
@@ -4572,6 +4574,7 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
           if (typeof this$1.__onClose === 'function') {
             this$1.__onClose();
           }
+          this$1.toggleInProgress = false;
           this$1.__updateModel(false);
           this$1.$emit('close');
         }, duration);
@@ -4598,15 +4601,17 @@ var QModal = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
         if (typeof onShow === 'function') {
           onShow();
         }
+        this$1.toggleInProgress = false;
         this$1.__updateModel(true);
         this$1.$emit('open');
       }, duration);
     },
     close: function close (onClose) {
-      if (!this.active) {
+      if (!this.active || this.toggleInProgress) {
         return
       }
 
+      this.toggleInProgress = true;
       this.__onClose = onClose;
 
       if (!Platform.has.popstate) {
