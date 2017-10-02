@@ -5717,7 +5717,7 @@ var dragType = {
   MAX: 2
 };
 
-var QRange = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"touch-pan",rawName:"v-touch-pan.horizontal",value:(_vm.__pan),expression:"__pan",modifiers:{"horizontal":true}}],staticClass:"q-slider non-selectable",class:_vm.classes,on:{"click":_vm.__click}},[_c('div',{ref:"handle",staticClass:"q-slider-handle-container"},[_c('div',{staticClass:"q-slider-track"}),_vm._l((((_vm.max - _vm.min) / _vm.step + 1)),function(n){return (_vm.markers)?_c('div',{staticClass:"q-slider-mark",style:({left: (n - 1) * 100 * _vm.step / (_vm.max - _vm.min) + '%'})}):_vm._e()}),_c('div',{staticClass:"q-slider-track active-track",class:{dragging: _vm.dragging, 'track-draggable': _vm.dragRange || _vm.dragOnlyRange},style:({left: ((_vm.percentageMin * 100) + "%"), width: _vm.activeTrackWidth})}),_c('div',{ref:"handleMin",staticClass:"q-slider-handle q-slider-handle-min",class:{dragging: _vm.dragging, 'handle-at-minimum': !_vm.fillHandleAlways && _vm.value.min === _vm.min},style:({left: ((_vm.percentageMin * 100) + "%"), borderRadius: _vm.square ? '0' : '50%'})},[(_vm.label || _vm.labelAlways)?_c('q-chip',{staticClass:"q-slider-label no-pointer-events",class:{'label-always': _vm.labelAlways},attrs:{"pointing":"down","square":"","color":_vm.labelColor}},[_vm._v(_vm._s(_vm.leftDisplayValue))]):_vm._e(),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"q-slider-ring"}):_vm._e()],1),_c('div',{staticClass:"q-slider-handle q-slider-handle-max",class:{dragging: _vm.dragging, 'handle-at-maximum': _vm.value.max === _vm.max},style:({left: ((_vm.percentageMax * 100) + "%"), borderRadius: _vm.square ? '0' : '50%'})},[(_vm.label || _vm.labelAlways)?_c('q-chip',{staticClass:"q-slider-label no-pointer-events",class:{'label-always': _vm.labelAlways},attrs:{"pointing":"down","square":"","color":_vm.labelColor}},[_vm._v(_vm._s(_vm.rightDisplayValue))]):_vm._e(),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"q-slider-ring"}):_vm._e()],1)],2)])},staticRenderFns: [],
+var QRange = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"touch-pan",rawName:"v-touch-pan.horizontal",value:(_vm.__pan),expression:"__pan",modifiers:{"horizontal":true}}],staticClass:"q-slider non-selectable",class:_vm.classes,on:{"click":_vm.__click}},[_c('div',{ref:"handle",staticClass:"q-slider-handle-container"},[_c('div',{staticClass:"q-slider-track"}),_vm._l((((_vm.max - _vm.min) / _vm.step + 1)),function(n){return (_vm.markers)?_c('div',{staticClass:"q-slider-mark",style:({left: (n - 1) * 100 * _vm.step / (_vm.max - _vm.min) + '%'})}):_vm._e()}),_c('div',{staticClass:"q-slider-track active-track",class:{dragging: _vm.dragging, 'track-draggable': _vm.dragRange || _vm.dragOnlyRange},style:({left: ((_vm.percentageMin * 100) + "%"), width: _vm.activeTrackWidth})}),_c('div',{ref:"handleMin",staticClass:"q-slider-handle q-slider-handle-min",class:{dragging: _vm.dragging, 'handle-at-minimum': !_vm.fillHandleAlways && _vm.value.min === _vm.min},style:({left: ((_vm.percentageMin * 100) + "%"), borderRadius: _vm.square ? '0' : '50%'})},[(_vm.label || _vm.labelAlways)?_c('q-chip',{staticClass:"q-slider-label no-pointer-events",class:{'label-always': _vm.labelAlways},attrs:{"pointing":"down","square":"","color":_vm.leftTooltipColor}},[_vm._v(_vm._s(_vm.leftDisplayValue))]):_vm._e(),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"q-slider-ring"}):_vm._e()],1),_c('div',{staticClass:"q-slider-handle q-slider-handle-max",class:{dragging: _vm.dragging, 'handle-at-maximum': _vm.value.max === _vm.max},style:({left: ((_vm.percentageMax * 100) + "%"), borderRadius: _vm.square ? '0' : '50%'})},[(_vm.label || _vm.labelAlways)?_c('q-chip',{staticClass:"q-slider-label no-pointer-events",class:{'label-always': _vm.labelAlways},attrs:{"pointing":"down","square":"","color":_vm.rightTooltipColor}},[_vm._v(_vm._s(_vm.rightDisplayValue))]):_vm._e(),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"q-slider-ring"}):_vm._e()],1)],2)])},staticRenderFns: [],
   name: 'q-range',
   directives: {
     TouchPan: TouchPan
@@ -5733,7 +5733,9 @@ var QRange = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
     },
     dragRange: Boolean,
     dragOnlyRange: Boolean,
+    leftLabelColor: String,
     leftLabelValue: String,
+    rightLabelColor: String,
     rightLabelValue: String
   },
   data: function data () {
@@ -5762,6 +5764,12 @@ var QRange = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
       return this.rightLabelValue !== void 0
         ? this.rightLabelValue
         : this.value.max
+    },
+    leftTooltipColor: function leftTooltipColor () {
+      return this.leftLabelColor || this.labelColor
+    },
+    rightTooltipColor: function rightTooltipColor () {
+      return this.rightLabelColor || this.labelColor
     }
   },
   watch: {
@@ -6050,7 +6058,7 @@ var QProgress = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
   }
 };
 
-var Dialog$1 = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-modal',{ref:"dialog",attrs:{"minimized":"","no-backdrop-dismiss":_vm.noBackdropDismiss,"no-esc-dismiss":_vm.noEscDismiss,"position":_vm.position},on:{"close":function($event){_vm.__dismiss();}}},[(_vm.title)?_c('div',{staticClass:"modal-header",domProps:{"innerHTML":_vm._s(_vm.title)}}):_vm._e(),(_vm.message)?_c('div',{staticClass:"modal-body modal-scroll",domProps:{"innerHTML":_vm._s(_vm.message)}}):_vm._e(),(_vm.form)?_c('div',{staticClass:"modal-body modal-scroll"},[_vm._l((_vm.form),function(el){return [(el.type === 'heading')?_c('h6',{domProps:{"innerHTML":_vm._s(el.label)}}):_vm._e(),(_vm.__isInputType(el.type))?_c('q-input',{staticStyle:{"margin-bottom":"10px"},attrs:{"type":el.type,"color":el.color,"placeholder":el.placeholder,"float-label":el.label,"no-pass-toggle":el.noPassToggle},model:{value:(el.model),callback:function ($$v) {el.model=$$v;},expression:"el.model"}}):(el.type === 'chips')?_c('q-chips-input',{attrs:{"color":el.color,"float-label":el.label},model:{value:(el.model),callback:function ($$v) {el.model=$$v;},expression:"el.model"}}):(['radio', 'checkbox', 'toggle'].includes(el.type))?_c('q-option-group',{attrs:{"type":el.type,"color":el.color,"options":el.items},model:{value:(el.model),callback:function ($$v) {el.model=$$v;},expression:"el.model"}}):_vm._e(),(el.type === 'slider' || el.type === 'range')?_c('div',{staticStyle:{"margin-top":"15px","margin-bottom":"10px"}},[_c('label',{domProps:{"innerHTML":_vm._s(el.label + ' (' + (el.type === 'range' ? el.model.min + ' to ' + el.model.max : el.model) + ')')}}),_c('q-' + el.type,{tag:"component",staticClass:"with-padding",attrs:{"min":el.min,"max":el.max,"step":el.step,"label":el.withLabel,"label-always":el.labelAlways,"markers":el.markers,"snap":el.snap,"square":el.square,"color":el.color},model:{value:(el.model),callback:function ($$v) {el.model=$$v;},expression:"el.model"}})],1):_vm._e(),(el.type === 'rating')?_c('div',{staticStyle:{"margin-bottom":"10px"}},[_c('label',{staticClass:"block",domProps:{"innerHTML":_vm._s(el.label)}}),_c('q-rating',{style:({fontSize: el.size || '2rem'}),attrs:{"max":el.max,"icon":el.icon,"color":el.color},model:{value:(el.model),callback:function ($$v) {el.model=$$v;},expression:"el.model"}})],1):_vm._e()]})],2):_vm._e(),(_vm.progress)?_c('div',{staticClass:"modal-body"},[_c('q-progress',{attrs:{"percentage":_vm.progress.model,"color":"progress.color || primary","animate":"","stripe":"","indeterminate":_vm.progress.indeterminate}}),(!_vm.progress.indeterminate)?_c('span',[_vm._v(_vm._s(_vm.progress.model)+" %")]):_vm._e()],1):_vm._e(),(_vm.buttons)?_c('div',{staticClass:"modal-buttons",class:{row: !_vm.stackButtons, column: _vm.stackButtons}},_vm._l((_vm.buttons),function(button,index){return _c('q-btn',{key:index,class:button.classes,style:(button.style),attrs:{"color":button.color,"flat":button.flat || !button.raised && !button.push && !button.outline && !button.rounded,"push":button.push,"rounded":button.rounded,"outline":button.outline},on:{"click":function($event){_vm.trigger(button.handler, button.preventClose);}}},[_c('span',{domProps:{"innerHTML":_vm._s(typeof button === 'string' ? button : button.label)}})])})):_vm._e(),(!_vm.buttons && !_vm.noButtons)?_c('div',{staticClass:"modal-buttons row"},[_c('q-btn',{attrs:{"flat":""},on:{"click":function($event){_vm.close();}}},[_vm._v("OK")])],1):_vm._e()])},staticRenderFns: [],
+var Dialog$1 = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-modal',{ref:"dialog",attrs:{"minimized":"","no-backdrop-dismiss":_vm.noBackdropDismiss,"no-esc-dismiss":_vm.noEscDismiss,"position":_vm.position},on:{"close":function($event){_vm.__dismiss();}}},[(_vm.title)?_c('div',{staticClass:"modal-header",domProps:{"innerHTML":_vm._s(_vm.title)}}):_vm._e(),(_vm.message)?_c('div',{staticClass:"modal-body modal-scroll",domProps:{"innerHTML":_vm._s(_vm.message)}}):_vm._e(),(_vm.form)?_c('div',{staticClass:"modal-body modal-scroll"},[_vm._l((_vm.form),function(el){return [(el.type === 'heading')?_c('h6',{domProps:{"innerHTML":_vm._s(el.label)}}):_vm._e(),(_vm.__isInputType(el.type))?_c('q-input',{staticStyle:{"margin-bottom":"10px"},attrs:{"type":el.type,"color":el.color,"placeholder":el.placeholder,"float-label":el.label,"no-pass-toggle":el.noPassToggle},model:{value:(el.model),callback:function ($$v) {el.model=$$v;},expression:"el.model"}}):(el.type === 'chips')?_c('q-chips-input',{attrs:{"color":el.color,"float-label":el.label},model:{value:(el.model),callback:function ($$v) {el.model=$$v;},expression:"el.model"}}):(['radio', 'checkbox', 'toggle'].includes(el.type))?_c('q-option-group',{attrs:{"type":el.type,"color":el.color,"options":el.items,"inline":el.inline},model:{value:(el.model),callback:function ($$v) {el.model=$$v;},expression:"el.model"}}):_vm._e(),(el.type === 'slider' || el.type === 'range')?_c('div',{staticStyle:{"margin-top":"15px","margin-bottom":"10px"}},[_c('label',{domProps:{"innerHTML":_vm._s(el.label + ' (' + (el.type === 'range' ? el.model.min + ' to ' + el.model.max : el.model) + ')')}}),_c('q-' + el.type,{tag:"component",staticClass:"with-padding",attrs:{"min":el.min,"max":el.max,"step":el.step,"label":el.withLabel,"label-always":el.labelAlways,"markers":el.markers,"snap":el.snap,"square":el.square,"color":el.color},model:{value:(el.model),callback:function ($$v) {el.model=$$v;},expression:"el.model"}})],1):_vm._e(),(el.type === 'rating')?_c('div',{staticStyle:{"margin-bottom":"10px"}},[_c('label',{staticClass:"block",domProps:{"innerHTML":_vm._s(el.label)}}),_c('q-rating',{style:({fontSize: el.size || '2rem'}),attrs:{"max":el.max,"icon":el.icon,"color":el.color},model:{value:(el.model),callback:function ($$v) {el.model=$$v;},expression:"el.model"}})],1):_vm._e()]})],2):_vm._e(),(_vm.progress)?_c('div',{staticClass:"modal-body"},[_c('q-progress',{attrs:{"percentage":_vm.progress.model,"color":"progress.color || primary","animate":"","stripe":"","indeterminate":_vm.progress.indeterminate}}),(!_vm.progress.indeterminate)?_c('span',[_vm._v(_vm._s(_vm.progress.model)+" %")]):_vm._e()],1):_vm._e(),(_vm.buttons)?_c('div',{staticClass:"modal-buttons",class:{row: !_vm.stackButtons, column: _vm.stackButtons}},_vm._l((_vm.buttons),function(button,index){return _c('q-btn',{key:index,class:button.classes,style:(button.style),attrs:{"color":button.color,"flat":button.flat || !button.raised && !button.push && !button.outline && !button.rounded,"push":button.push,"rounded":button.rounded,"outline":button.outline},on:{"click":function($event){_vm.trigger(button.handler, button.preventClose);}}},[_c('span',{domProps:{"innerHTML":_vm._s(typeof button === 'string' ? button : button.label)}})])})):_vm._e(),(!_vm.buttons && !_vm.noButtons)?_c('div',{staticClass:"modal-buttons row"},[_c('q-btn',{attrs:{"flat":""},on:{"click":function($event){_vm.close();}}},[_vm._v("OK")])],1):_vm._e()])},staticRenderFns: [],
   name: 'q-dialog',
   components: {
     QModal: QModal,
@@ -8647,7 +8655,7 @@ var FabMixin = {
   }
 };
 
-var QFab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"q-fab row inline justify-center",class:{'q-fab-opened': _vm.opened}},[_c('q-btn',{class:{glossy: _vm.glossy},attrs:{"round":"","outline":_vm.outline,"push":_vm.push,"flat":_vm.flat,"color":_vm.color},on:{"click":_vm.toggle}},[_vm._t("tooltip"),_c('q-icon',{staticClass:"q-fab-icon absolute-full row flex-center full-width full-height",attrs:{"name":_vm.icon}}),_c('q-icon',{staticClass:"q-fab-active-icon absolute-full row flex-center full-width full-height",attrs:{"name":_vm.activeIcon}})],2),_c('div',{staticClass:"q-fab-actions flex no-wrap inline items-center",class:("q-fab-" + (_vm.direction))},[_vm._t("default")],2)],1)},staticRenderFns: [],
+var QFab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"q-fab z-fab row inline justify-center",class:{'q-fab-opened': _vm.opened}},[_c('q-btn',{class:{glossy: _vm.glossy},attrs:{"round":"","outline":_vm.outline,"push":_vm.push,"flat":_vm.flat,"color":_vm.color},on:{"click":_vm.toggle}},[_vm._t("tooltip"),_c('q-icon',{staticClass:"q-fab-icon absolute-full row flex-center full-width full-height",attrs:{"name":_vm.icon}}),_c('q-icon',{staticClass:"q-fab-active-icon absolute-full row flex-center full-width full-height",attrs:{"name":_vm.activeIcon}})],2),_c('div',{staticClass:"q-fab-actions flex no-wrap inline items-center",class:("q-fab-" + (_vm.direction))},[_vm._t("default")],2)],1)},staticRenderFns: [],
   name: 'q-fab',
   mixins: [FabMixin, ModelToggleMixin],
   components: {
@@ -10459,6 +10467,9 @@ var QStepperNavigation = {
 };
 
 var TabMixin = {
+  directives: {
+    Ripple: Ripple
+  },
   props: {
     label: String,
     icon: String,
@@ -10512,17 +10523,53 @@ var TabMixin = {
         return 'display: none;'
       }
     }
+  },
+  methods: {
+    __getTabContent: function __getTabContent (h) {
+      var child = [];
+
+      this.icon && child.push(h(QIcon, {
+        staticClass: 'q-tab-icon',
+        props: {
+          name: this.icon
+        }
+      }));
+
+      this.label && child.push(h('span', {
+        staticClass: 'q-tab-label',
+        domProps: {
+          innerHTML: this.label
+        }
+      }));
+
+      if (this.count) {
+        child.push(h(QChip, {
+          props: {
+            floating: true
+          }
+        }, [ this.count ]));
+      }
+      else if (this.alert) {
+        child.push(h('div', {
+          staticClass: 'q-dot'
+        }));
+      }
+
+      child.push(this.$slots.default);
+      if (this.$q.theme !== 'ios') {
+        child.push(h('div', {
+          staticClass: 'q-tabs-bar',
+          style: this.barStyle
+        }));
+      }
+
+      return child
+    }
   }
 };
 
-var QRouteTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('router-link',{directives:[{name:"ripple",rawName:"v-ripple.mat",modifiers:{"mat":true}}],staticClass:"q-tab column flex-center relative-position",class:_vm.classes,attrs:{"tag":"div","to":_vm.to,"replace":_vm.replace,"append":_vm.append,"exact":_vm.exact,"event":_vm.routerLinkEventName},nativeOn:{"click":function($event){_vm.select($event);}}},[(_vm.icon)?_c('q-icon',{staticClass:"q-tab-icon",attrs:{"name":_vm.icon}}):_vm._e(),(_vm.label)?_c('span',{staticClass:"q-tab-label",domProps:{"innerHTML":_vm._s(_vm.label)}}):_vm._e(),_vm._v(" "),(_vm.count)?_c('span',{staticClass:"floating label circular"},[_vm._v(_vm._s(_vm.count))]):(_vm.alert)?_c('div',{staticClass:"q-dot"}):_vm._e(),_vm._t("default"),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"q-tabs-bar",style:(_vm.barStyle)}):_vm._e()],2)},staticRenderFns: [],
+var QRouteTab = {
   name: 'q-route-tab',
-  components: {
-    QIcon: QIcon
-  },
-  directives: {
-    Ripple: Ripple
-  },
   mixins: [TabMixin, RouterLinkMixin],
   watch: {
     $route: function $route () {
@@ -10549,18 +10596,33 @@ var QRouteTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
   },
   created: function created () {
     this.checkIfSelected();
+  },
+  render: function render (h) {
+    return h('router-link', {
+      props: {
+        tag: 'div',
+        to: this.to,
+        replace: this.replace,
+        append: this.append,
+        event: routerLinkEventName
+      },
+      nativeOn: {
+        click: this.select
+      },
+      staticClass: 'q-tab column flex-center relative-position',
+      'class': this.classes,
+      directives: [{
+        name: 'ripple',
+        modifiers: {
+          mat: true
+        }
+      }]
+    }, this.__getTabContent(h))
   }
 };
 
-var QTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"ripple",rawName:"v-ripple.mat",modifiers:{"mat":true}}],staticClass:"q-tab column flex-center relative-position",class:_vm.classes,on:{"click":_vm.select}},[(_vm.icon)?_c('q-icon',{staticClass:"q-tab-icon",attrs:{"name":_vm.icon}}):_vm._e(),(_vm.label)?_c('span',{staticClass:"q-tab-label",domProps:{"innerHTML":_vm._s(_vm.label)}}):_vm._e(),(_vm.count)?_c('q-chip',{attrs:{"floating":""}},[_vm._v(_vm._s(_vm.count))]):(_vm.alert)?_c('div',{staticClass:"q-dot"}):_vm._e(),_vm._t("default"),(_vm.$q.theme !== 'ios')?_c('div',{staticClass:"q-tabs-bar",style:(_vm.barStyle)}):_vm._e()],2)},staticRenderFns: [],
+var QTab = {
   name: 'q-tab',
-  components: {
-    QIcon: QIcon,
-    QChip: QChip
-  },
-  directives: {
-    Ripple: Ripple
-  },
   mixins: [TabMixin],
   props: {
     default: Boolean
@@ -10577,6 +10639,21 @@ var QTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm
     if (this.default && !this.disable) {
       this.select();
     }
+  },
+  render: function render (h) {
+    return h('div', {
+      staticClass: 'q-tab column flex-center relative-position',
+      'class': this.classes,
+      on: {
+        click: this.select
+      },
+      directives: [{
+        name: 'ripple',
+        modifiers: {
+          mat: true
+        }
+      }]
+    }, this.__getTabContent(h))
   }
 };
 
@@ -12427,7 +12504,7 @@ var appIsInProgress = false;
 var timeout;
 var props = {};
 
-var staticClass = 'q-loading animate-fade fullscreen column flex-center z-absolute';
+var staticClass = 'q-loading animate-fade fullscreen column flex-center z-max';
 
 function isActive$1 () {
   return appIsInProgress
