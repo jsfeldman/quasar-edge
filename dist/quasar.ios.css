@@ -7053,6 +7053,16 @@ body.platform-android .platform-android-hide {
     display: none !important;
   }
 }
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+@media print {
+  .print-hide {
+    display: none !important;
+  }
+}
 @media (max-width: 575px) {
   .xs-hide,
   .gt-xs,
