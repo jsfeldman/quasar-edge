@@ -2088,7 +2088,7 @@ body.with-modal {
 }
 .modal-body,
 .modal-slim-body {
-  text-align: center;
+  text-align: left;
   color: #000;
 }
 .small-modal-scroll,
