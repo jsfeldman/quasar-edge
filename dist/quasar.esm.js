@@ -10518,13 +10518,16 @@ var TabMixin = {
     color: String
   },
   inject: ['data', 'selectTab'],
-  computed: {
-    active: function active () {
-      var sel = this.data.tabName === this.name;
-      if (sel) {
+  watch: {
+    active: function active (val) {
+      if (val) {
         this.$emit('select', this.name);
       }
-      return sel
+    }
+  },
+  computed: {
+    active: function active () {
+      return this.data.tabName === this.name
     },
     classes: function classes () {
       var cls = {
@@ -10618,6 +10621,9 @@ var QRouteTab = {
       this.$nextTick(function () {
         if (this$1.$el.classList.contains('router-link-active') || this$1.$el.classList.contains('router-link-exact-active')) {
           this$1.selectTab(this$1.name);
+        }
+        else if (this$1.active) {
+          this$1.selectTab(null);
         }
       });
     }
