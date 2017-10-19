@@ -12539,12 +12539,17 @@ function show (ref) {
   var spinnerColor = ref.spinnerColor; if ( spinnerColor === void 0 ) spinnerColor = 'white';
   var messageColor = ref.messageColor; if ( messageColor === void 0 ) messageColor = 'white';
   var spinner = ref.spinner; if ( spinner === void 0 ) spinner = QSpinner;
+  var customClass = ref.customClass; if ( customClass === void 0 ) customClass = false;
 
   props.spinner = spinner;
   props.message = message;
   props.spinnerSize = spinnerSize;
   props.spinnerColor = spinnerColor;
   props.messageColor = messageColor;
+
+  if (customClass && typeof customClass === 'string') {
+    props.customClass = " " + (customClass.trim());
+  }
 
   if (appIsInProgress) {
     vm && vm.$forceUpdate();
@@ -12579,7 +12584,7 @@ function show (ref) {
           }));
         }
 
-        return h('div', {staticClass: staticClass}, child)
+        return h('div', {staticClass: staticClass + props.customClass}, child)
       }
     });
   }, delay);
