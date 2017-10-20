@@ -2882,8 +2882,8 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
   mounted: function mounted () {
     var this$1 = this;
 
-    if (this.__input === void 0) {
-      console.error('Autocomplete needs to be inserted into an input form component.');
+    if (this.__input === null) {
+      console.error('Autocomplete needs to be inserted into a QInput or QSearch component.');
       return
     }
     this.__input.register();
