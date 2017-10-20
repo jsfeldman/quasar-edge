@@ -3193,7 +3193,7 @@ var QCardActions = {
     align: {
       type: String,
       default: 'start',
-      validator: function (v) { return ['start', 'center', 'end', 'around'].includes(v); }
+      validator: function (v) { return ['start', 'center', 'end', 'around', 'between'].includes(v); }
     }
   },
   render: function render (h, ctx) {
