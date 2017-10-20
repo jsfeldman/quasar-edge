@@ -738,7 +738,10 @@ var QAlert = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
     QTransition: QTransition
   },
   props: {
-    value: Boolean,
+    value: {
+      type: Boolean,
+      default: true
+    },
     duration: Number,
     name: String,
     enter: String,
@@ -763,7 +766,7 @@ var QAlert = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_
   },
   data: function data () {
     return {
-      active: true
+      active: this.value
     }
   },
   watch: {
