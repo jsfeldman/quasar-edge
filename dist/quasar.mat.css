@@ -6784,6 +6784,7 @@ img.avatar {
 }
 .absolute,
 .absolute-full,
+.absolute-center,
 .absolute-bottom,
 .absolute-left,
 .absolute-right,
@@ -6844,6 +6845,12 @@ img.avatar {
   right: 0;
   bottom: 0;
   left: 0;
+}
+.fixed-center,
+.absolute-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .vertical-top {
   vertical-align: top !important;
