@@ -1224,6 +1224,7 @@ var scroll = Object.freeze({
 	getScrollTarget: getScrollTarget,
 	getScrollHeight: getScrollHeight,
 	getScrollPosition: getScrollPosition,
+	animScrollTo: animScrollTo,
 	setScrollPosition: setScrollPosition,
 	getScrollbarWidth: getScrollbarWidth
 });
