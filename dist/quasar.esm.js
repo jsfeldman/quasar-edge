@@ -2763,11 +2763,12 @@ function prevent (e) {
   e.stopPropagation();
 }
 
-var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-popover',{ref:"popover",attrs:{"fit":"","offset":[0, 10],"anchor-click":false},on:{"close":function($event){_vm.$emit('close');},"open":function($event){_vm.$emit('open');}}},[_c('div',{staticClass:"list no-border",class:{separator: _vm.separator},style:(_vm.computedWidth)},_vm._l((_vm.computedResults),function(result,index){return _c('q-item-wrapper',{key:result.id || JSON.stringify(result),class:{active: _vm.selectedIndex === index},attrs:{"cfg":result,"link":""},on:{"click":function($event){_vm.setValue(result);}}})}))])},staticRenderFns: [],
+var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('q-popover',{ref:"popover",attrs:{"fit":"","offset":[0, 10],"anchor-click":false},on:{"close":function($event){_vm.$emit('close');},"open":function($event){_vm.$emit('open');}}},[_c('q-list',{style:(_vm.computedWidth),attrs:{"no-border":"","link":"","separator":_vm.separator}},_vm._l((_vm.computedResults),function(result,index){return _c('q-item-wrapper',{key:result.id || JSON.stringify(result),class:{active: _vm.selectedIndex === index},attrs:{"cfg":result},on:{"click":function($event){_vm.setValue(result);}}})}))],1)},staticRenderFns: [],
   name: 'q-autocomplete',
   components: {
     QInput: QInput,
     QPopover: QPopover,
+    QList: QList,
     QItemWrapper: QItemWrapper
   },
   props: {
@@ -2790,7 +2791,10 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
     staticData: Object,
     separator: Boolean
   },
-  inject: ['__input', '__inputParent'],
+  inject: {
+    '__input': { default: null },
+    '__inputDebounce': { default: null }
+  },
   data: function data () {
     return {
       searchId: '',
@@ -2856,13 +2860,13 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
       this.close();
       this.__input.loading = true;
       this.$emit('search', terms, function (results) {
-        if (!results || this$1.searchId !== searchId) {
+        if (this$1.searchId !== searchId) {
           return
         }
 
         this$1.__clearSearch();
 
-        if (this$1.results === results) {
+        if (!this$1.results || this$1.results === results) {
           return
         }
 
@@ -2891,7 +2895,7 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
       this.searchId = '';
     },
     setValue: function setValue (result) {
-      var suffix = this.__inputParent ? 'Parent' : '';
+      var suffix = this.__inputDebounce ? 'Debounce' : '';
       this[("__input" + suffix)].set(this.staticData ? result[this.staticData.field] : result.value);
 
       this.$emit('selected', result);
@@ -2958,8 +2962,8 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
       return
     }
     this.__input.register();
-    if (this.__inputParent) {
-      this.__inputParent.setChildDebounce(true);
+    if (this.__inputDebounce) {
+      this.__inputDebounce.setChildDebounce(true);
     }
     this.$nextTick(function () {
       this$1.inputEl = this$1.__input.getEl();
@@ -2969,8 +2973,8 @@ var QAutocomplete = {render: function(){var _vm=this;var _h=_vm.$createElement;v
   beforeDestroy: function beforeDestroy () {
     this.__clearSearch();
     this.__input.unregister();
-    if (this.__inputParent) {
-      this.__inputParent.setChildDebounce(false);
+    if (this.__inputDebounce) {
+      this.__inputDebounce.setChildDebounce(false);
     }
     if (this.inputEl) {
       this.inputEl.removeEventListener('keydown', this.__handleKeypress);
@@ -4820,7 +4824,7 @@ var QSearch = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=
     var this$1 = this;
 
     return {
-      __inputParent: {
+      __inputDebounce: {
         set: function (val) {
           if (this$1.value !== val) {
             this$1.$emit('input', val);
