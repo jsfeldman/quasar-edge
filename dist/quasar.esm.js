@@ -9197,7 +9197,7 @@ var SideMixin = {
       this.leftState.openedSmall = false;
       this.backdrop.percentage = 0;
       if (typeof fn === 'function') {
-        setTimeout(fn, 310);
+        setTimeout(fn, 370);
       }
     },
     __hide: function __hide (side, fn) {
@@ -9213,6 +9213,7 @@ var SideMixin = {
 
       if (!state.openedSmall) {
         state.openedBig = false;
+        fn && fn();
         return
       }
 
@@ -9231,13 +9232,12 @@ var SideMixin = {
       var state = this[side + 'State'];
       if (this[side + 'OverBreakpoint']) {
         state.openedBig = true;
-        if (typeof fn === 'function') {
-          fn();
-        }
+        fn && fn();
         return
       }
 
       if (!this.$slots[side]) {
+        fn && fn();
         return
       }
 
@@ -9258,9 +9258,7 @@ var SideMixin = {
       document.body.classList.add('with-layout-side-opened');
       state.openedSmall = true;
       this.backdrop.percentage = 1;
-      if (typeof fn === 'function') {
-        fn();
-      }
+      fn && fn();
     },
     __openLeftByTouch: function __openLeftByTouch (evt) {
       this.__openByTouch(evt, 'left');
