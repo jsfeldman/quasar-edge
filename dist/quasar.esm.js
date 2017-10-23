@@ -6197,12 +6197,14 @@ var Dialog$1 = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
       return data
     },
     close: function close (fn) {
+      var this$1 = this;
+
       if (!this.opened) {
         return
       }
       this.$refs.dialog.close(function () {
         if (typeof fn === 'function') {
-          fn();
+          fn(this$1.getFormData());
         }
       });
     },
@@ -6212,7 +6214,7 @@ var Dialog$1 = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
     __dismiss: function __dismiss () {
       this.$root.$destroy();
       if (typeof this.onDismiss === 'function') {
-        this.onDismiss();
+        this.onDismiss(this.getFormData());
       }
     }
   },
@@ -7080,6 +7082,9 @@ var QTooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
     });
   },
   beforeDestroy: function beforeDestroy () {
+    if (!this.anchorEl) {
+      return
+    }
     if (Platform.is.mobile) {
       this.anchorEl.removeEventListener('click', this.open);
     }
