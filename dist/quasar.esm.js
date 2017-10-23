@@ -6163,19 +6163,18 @@ var Dialog$1 = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c
   },
   methods: {
     trigger: function trigger (handler, preventClose) {
-      var this$1 = this;
-
-      var handlerFn = typeof handler === 'function';
-      if (!handlerFn) {
+      if (typeof handler !== 'function') {
         this.close();
         return
       }
 
+      var data = this.getFormData();
+
       if (preventClose) {
-        handler(this.getFormData(), this.close);
+        handler(data, this.close);
       }
       else {
-        this.close(function () { handler(this$1.getFormData()); });
+        this.close(function () { handler(data); });
       }
     },
     getFormData: function getFormData () {
