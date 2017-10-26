@@ -11226,12 +11226,7 @@ var QUploader = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
     multiple: Boolean,
     hideUploadButton: Boolean,
     hideUploadProgress: Boolean,
-    noThumbnails: Boolean,
-
-    color: {
-      type: String,
-      default: 'primary'
-    }
+    noThumbnails: Boolean
   },
   data: function data () {
     return {
@@ -11409,7 +11404,7 @@ var QUploader = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
       var this$1 = this;
 
       var length = this.length;
-      if (length === 0) {
+      if (this.disable || length === 0) {
         return
       }
 
