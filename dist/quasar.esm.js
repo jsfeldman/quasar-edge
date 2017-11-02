@@ -7327,7 +7327,7 @@ var QDataTable = {render: function(){var _vm=this;var _h=_vm.$createElement;var 
 var MILLISECONDS_IN_DAY = 86400000;
 var MILLISECONDS_IN_HOUR = 3600000;
 var MILLISECONDS_IN_MINUTE = 60000;
-var token = /d{1,4}|M{1,4}|m{1,2}|w{1,2}|D{1,4}|YY(?:YY)?|H{1,2}|h{1,2}|s{1,2}|S{1,3}|Z{1,2}|a{1,2}|[AQExX]/g;
+var token = /d{1,4}|M{1,4}|m{1,2}|w{1,2}|Qo|Do|D{1,4}|YY(?:YY)?|H{1,2}|h{1,2}|s{1,2}|S{1,3}|Z{1,2}|a{1,2}|[AQExX]/g;
 
 var dayNames = [
   'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
@@ -7627,6 +7627,18 @@ function daysInMonth (date) {
   return (new Date(date.getFullYear(), date.getMonth() + 1, 0)).getDate()
 }
 
+function getOrdinal (n) {
+  if (n >= 11 && n <= 13) {
+    return (n + "th")
+  }
+  switch (n % 10) {
+    case 1: return (n + "st")
+    case 2: return (n + "nd")
+    case 3: return (n + "rd")
+  }
+  return (n + "th")
+}
+
 var formatter = {
   // Year: 00, 01, ..., 99
   YY: function YY (date) {
@@ -7665,9 +7677,19 @@ var formatter = {
     return Math.ceil((date.getMonth() + 1) / 3)
   },
 
+  // Quarter: 1st, 2nd, 3rd, 4th
+  Qo: function Qo (date) {
+    return getOrdinal(this.Q(date))
+  },
+
   // Day of month: 1, 2, ..., 31
   D: function D (date) {
     return date.getDate()
+  },
+
+  // Day of month: 1st, 2nd, ..., 31st
+  Do: function Do (date) {
+    return getOrdinal(date.getDate())
   },
 
   // Day of month: 01, 02, ..., 31
