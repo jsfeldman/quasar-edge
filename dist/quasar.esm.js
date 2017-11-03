@@ -953,7 +953,8 @@ function debounce (fn, wait, immediate) {
   if ( wait === void 0 ) wait = 250;
 
   var timeout;
-  return function () {
+
+  function debounced () {
     var this$1 = this;
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
@@ -971,6 +972,12 @@ function debounce (fn, wait, immediate) {
     }
     timeout = setTimeout(later, wait);
   }
+
+  debounced.cancel = function () {
+    clearTimeout(timeout);
+  };
+
+  return debounced
 }
 
 function frameDebounce (fn) {
@@ -11087,11 +11094,8 @@ var obj;},staticRenderFns: [],
         this$1.selectTab(this$1.value);
       }
 
-      // let browser drawing stabilize then
-      setTimeout(function () {
-        this$1.__redraw();
-        this$1.__findTabAndScroll(this$1.data.tabName, true);
-      }, debounceDelay);
+      this$1.__redraw();
+      this$1.__findTabAndScroll(this$1.data.tabName, true);
     });
   },
   beforeDestroy: function beforeDestroy () {
@@ -11099,6 +11103,8 @@ var obj;},staticRenderFns: [],
     this.__stopAnimScroll();
     this.$refs.scroller.removeEventListener('scroll', this.__updateScrollIndicator);
     window.removeEventListener('resize', this.__redraw);
+    this.__redraw.cancel();
+    this.__updateScrollIndicator.cancel();
   }
 };
 
