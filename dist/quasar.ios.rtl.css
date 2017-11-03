@@ -727,7 +727,6 @@ body.desktop ul.breadcrumb a:hover:after {
   line-height: 1;
 }
 .q-chip .q-chip-main {
-  padding: 8px 0 8px;
   line-height: initial;
 }
 .q-chip .q-chip-side {
