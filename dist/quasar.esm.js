@@ -11257,7 +11257,11 @@ var QUploader = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
     multiple: Boolean,
     hideUploadButton: Boolean,
     hideUploadProgress: Boolean,
-    noThumbnails: Boolean
+    noThumbnails: Boolean,
+    sendRaw: {
+      type: Boolean,
+      default: false
+    }
   },
   data: function data () {
     return {
@@ -11427,7 +11431,12 @@ var QUploader = {render: function(){var _vm=this;var _h=_vm.$createElement;var _
           }
 
           this$1.xhrs.push(xhr);
-          xhr.send(form);
+          if (this$1.sendRaw) {
+            xhr.send(file);
+          }
+          else {
+            xhr.send(form);
+          }
         });
       })
     },
