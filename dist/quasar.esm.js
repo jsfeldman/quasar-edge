@@ -946,7 +946,7 @@ var InputMixin = {
 var inputTypes = [
   'text', 'textarea', 'email',
   'tel', 'file', 'number',
-  'password', 'url'
+  'password', 'url', 'time', 'date'
 ];
 
 function debounce (fn, wait, immediate) {
