@@ -8382,13 +8382,7 @@ var InlineDatetimeMat = {render: function(){var _vm=this;var _h=_vm.$createEleme
         return
       }
 
-      var
-        view = this.$refs.selector,
-        rows = value === 'year' ? this.year - this.yearMin : this.month - this.monthMin;
-
-      this.$nextTick(function () {
-        view.scrollTop = rows * height(view.children[0].children[0]) - height(view) / 2.5;
-      });
+      this.yearMinscrollView(value);
     },
     focused: function focused (value) {
       if (value === true) {
@@ -8547,6 +8541,11 @@ var InlineDatetimeMat = {render: function(){var _vm=this;var _h=_vm.$createEleme
         rows = value === 'year' ? this.year - this.yearMin : this.month - this.monthMin;
       this.$nextTick(function () {
         view.scrollTop = rows * height(view.children[0].children[0]) - height(view) / 2.5;
+        if (view.scrollTop === 0) {
+          setTimeout(function () {
+            view.scrollTop = rows * height(view.children[0].children[0]) - height(view) / 2.5;
+          }, 100);
+        }
       });
     },
 
