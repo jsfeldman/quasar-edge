@@ -8544,7 +8544,7 @@ var InlineDatetimeMat = {render: function(){var _vm=this;var _h=_vm.$createEleme
         if (view.scrollTop === 0) {
           setTimeout(function () {
             view.scrollTop = rows * height(view.children[0].children[0]) - height(view) / 2.5;
-          }, 100);
+          }, 300);
         }
       });
     },
