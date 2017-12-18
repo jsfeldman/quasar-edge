@@ -8374,7 +8374,12 @@ var InlineDatetimeMat = {render: function(){var _vm=this;var _h=_vm.$createEleme
   watch: {
     value: function value (val) {
       if (!val) {
-        this.view = ['date', 'datetime'].includes(this.type) ? 'day' : 'hour';
+        if (this.initialView) {
+          this.view = this.initialView;
+        }
+        else {
+          this.view = ['date', 'datetime'].includes(this.type) ? 'day' : 'hour';
+        }
       }
     },
     view: function view (value) {
@@ -8382,7 +8387,7 @@ var InlineDatetimeMat = {render: function(){var _vm=this;var _h=_vm.$createEleme
         return
       }
 
-      this.yearMinscrollView(value);
+      this.scrollView(value);
     },
     focused: function focused (value) {
       if (value === true) {
